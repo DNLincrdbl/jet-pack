@@ -1,143 +1,82 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
-import Image from 'next/image';
+import Link from 'next/link';
+import Scene from '@/components/Scene';
 
 const Products = () => {
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
-
-  const products = [
-    {
-      name: "M30 rekesz",
-      description: "Méretek: 600 x 400 x 300 mm\nSúly: 2,2kg\nTeherbírás: 30kg",
-      image: "/img/portfolio1.jpg",
-    },
-    {
-      name: "M5 rekesz",
-      description: "Méretek: 600 x 400 x 100 mm\nSúly: 1 kg\nTeherbírás: 15kg",
-      image: "/img/portfolio2.jpg",
-    },
-    {
-      name: "Export egyutas rekesz",
-      description: "Méretek: 400 x 300 x 150 mm\nTerhelhetőség: 6kg",
-      image: "/img/portfolio3.jpg",
-    },
-    {
-      name: "M10 rekesz",
-      description: "Méretek: 600 x 400 x 150 mm\nSúly: 1,2kg\nTeherbírás: 15kg",
-      image: "/img/portfolio4.jpg",
-    },
-    {
-      name: "Műanyag konténer perforált JET785E",
-      description: "Méret: 1000x1200x785mm\nTára: 31kg\nTeherbírás: 500kg (5000kg egymásra pakolva)\n4 talpas vagy csúszótalpas kivitel",
-      image: "/img/JET785e_1.jpg",
-    },
-    {
-      name: "Műanyag konténer perforált JET580",
-      description: "Méret: 1000x1200x580mm\nTára: 26kg\nTeherbírás: 500kg (5000kg egymásra pakolva)\n4 talpas vagy csúszótalpas kivitel",
-      image: "/img/JET580_1.jpg",
-    },
-    {
-      name: "Műanyag konténer zárt JET785Z",
-      description: "Méret: 1000x1200x785mm\nTára: 33kg\nTeherbírás: 500kg (5000kg egymásra pakolva)\n4 talpas vagy csúszótalpas kivitel",
-      image: "/img/JET785z_1.jpg",
-    }
-  ];
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.5,
-      },
-    },
-  };
-
   return (
-    <section id="products" className="relative py-20">
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          ref={ref}
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
-          variants={containerVariants}
-          className="text-center mb-16"
-        >
-          <motion.p variants={itemVariants} className="text-blue-400 font-semibold mb-2">
-            JetPack
-          </motion.p>
-          <motion.h2
-            variants={itemVariants}
-            className="text-4xl md:text-5xl font-bold text-white mb-4"
-          >
-            Termé<span className="text-blue-400">keink</span>
-          </motion.h2>
-          <motion.p
-            variants={itemVariants}
-            className="text-xl text-gray-300 max-w-3xl mx-auto"
-          >
-            Amennyiben termékeink felkeltették érdeklődését, kérje <a href="#contact" className="text-blue-400 hover:text-blue-300 transition-colors">árajánlatunkat</a>.
-          </motion.p>
-        </motion.div>
-
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-        >
-          {products.map((product, index) => (
+    <section id="products">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Modern Product Showcase */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+          {/* Content - Show first on mobile */}
+          <div className="text-center lg:text-left order-1 lg:order-2">
             <motion.div
-              key={index}
-              variants={itemVariants}
-              whileHover={{ y: -10 }}
-              className="group relative bg-white/5 backdrop-blur-sm rounded-2xl overflow-hidden border border-white/10 hover:border-white/20 transition-all duration-300"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+              className="space-y-6"
             >
-              <div className="relative h-64 overflow-hidden">
-                <Image
-                  src={product.image}
-                  alt={product.name}
-                  fill
-                  className="object-cover group-hover:scale-110 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-              </div>
-              <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="bg-blue-500/80 backdrop-blur-sm text-white px-6 py-2 rounded-lg font-medium"
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white">
+                Fedezze fel <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-500">innovatív</span> termékeinket
+              </h2>
+              <p className="text-base sm:text-lg text-gray-300 max-w-2xl mx-auto lg:mx-0">
+                Prémium minőségű műanyag rekeszeink és konténereink tökéletes megoldást nyújtanak minden logisztikai kihívásra.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                <Link
+                  href="/termekek"
+                  className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl font-medium transition-all duration-300 hover:from-blue-600 hover:to-blue-700 shadow-lg shadow-blue-500/20 hover:shadow-blue-500/30 hover:-translate-y-1 text-sm sm:text-base"
                 >
-                  Részletek
-                </motion.button>
+                  További termékeink
+                  <svg className="w-4 h-4 sm:w-5 sm:h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                </Link>
+                <button
+                  onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+                  className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 bg-white/10 backdrop-blur-md text-white rounded-xl font-medium border border-white/20 transition-all duration-300 hover:bg-white/20 hover:-translate-y-1 text-sm sm:text-base"
+                >
+                  Kapcsolatfelvétel
+                </button>
               </div>
-              <div className="p-6 relative z-10">
-                <h3 className="text-xl font-semibold text-white mb-2">
-                  {product.name}
-                </h3>
-                <p className="text-gray-300 whitespace-pre-line">
-                  {product.description}
-                </p>
+
+              {/* Feature badges */}
+              <div className="grid grid-cols-2 gap-3 sm:gap-4 mt-8 sm:mt-12">
+                {[
+                  { label: 'Nagy teherbírás', value: '500 kg' },
+                  { label: 'Rakásolható', value: '5000 kg' },
+                  { label: 'Élettartam', value: '10+ év' },
+                  { label: 'UV-álló', value: '100%' },
+                ].map((feature, index) => (
+                  <div
+                    key={index}
+                    className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-3 sm:p-4 text-center"
+                  >
+                    <div className="text-xl sm:text-2xl font-bold text-blue-400">{feature.value}</div>
+                    <div className="text-xs sm:text-sm text-gray-400">{feature.label}</div>
+                  </div>
+                ))}
               </div>
             </motion.div>
-          ))}
-        </motion.div>
+          </div>
+
+          {/* 3D Model Display */}
+          <div className="relative h-[400px] sm:h-[500px] lg:h-[600px] rounded-2xl overflow-hidden border border-white/10 bg-gradient-to-br from-blue-500/5 to-purple-500/5 backdrop-blur-sm order-2 lg:order-1">
+            <div className="absolute inset-0">
+              <Scene />
+            </div>
+            {/* Floating badges */}
+            <div className="absolute top-4 sm:top-6 left-4 sm:left-6 bg-white/10 backdrop-blur-md px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border border-white/20">
+              <span className="text-white/80 text-xs sm:text-sm">360° Forgatható</span>
+            </div>
+            <div className="absolute bottom-4 sm:bottom-6 right-4 sm:right-6 bg-gradient-to-r from-blue-500 to-blue-600 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full shadow-lg">
+              <span className="text-white text-xs sm:text-sm font-medium">JET785E</span>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );
