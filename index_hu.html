@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>JetPack - Hungary</title>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+	<link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+		rel="stylesheet">
+
+	<script>
+		function languageChanged() {
+			let languageSelect = document.getElementById("language");
+			let selectedLanguage = languageSelect.options[languageSelect.selectedIndex].value;
+
+			location.href = "?lang=" + selectedLanguage;
+		}
+
+
+
+	</script>
+</head>
+
+<body>
+	<header>
+		<a href="#" class="logo"><img src="img/jetpack_logo.png" alt=""></a>
+
+		<ul class="navlist">
+			<li><a href="#home" class="active">Kezdőlap</a></li>
+			<li><a href="#products">Termékeink</a></li>
+			<li><a href="#services1">Szolgáltatásaink</a></li>
+			<li><a href="#services">Rólunk</a></li>
+			<li><a href="#contact">Kapcsolat</a></li>
+			<li><a href="#offerservice">Ajánlatkérés</a></li>
+		</ul>
+
+		<select name="language" id="language"
+			style="background: transparent; color: white; border-radius: 10px; padding: 5px;"
+			onchange="languageChanged();">
+			<option value="hu" selected style="color: black">Hungarian</option>
+			<option value="de" style="color: black">German</option>
+			<option value="en" style="color: black">English</option>
+			<option value="ro" style="color: black">Romanian</option>
+		</select>
+
+		<div class="bx bx-menu" id="menu-icon"></div>
+	</header>
+
+	<section class="home" id="home">
+		<div id="overlay"></div>
+		<div class="home-text">
+
+			<h1>JetPack</h1>
+			<h3>Hungary<span>.</span></h3>
+			<p>Műanyag rekeszek gyártása, műanyag fröccsöntés.</p>
+			<div class="button">
+				<a href="#products" class="btn">Termékeink</a>
+				<a href="#services1" class="btn2">Bérgyártás</a>
+
+			</div>
+		</div>
+	</section>
+
+	<section class="products" id="products">
+		<div class="main-text">
+			<h2>Termé<span>keink</span></h2>
+			<p>Amennyiben termékeink felkeltették érdeklődését, kérje <a href="#contact">árajánlatunkat</a>.
+
+			</p>
+		</div>
+
+		<div class="products-content">
+			<div class="row">
+				<img src="img/portfolio1.jpg">
+				<div class="layer">
+					<h5>M30 rekesz</h5>
+					<p>Méretek:
+
+						600 x 400 x 300 mm
+
+						Súly:
+
+						2,2kg
+
+						Teherbírás:
+
+						30kg</p>
+					<!--<a href="#"><i class='bx bx-link-external'></i></a>-->
+				</div>
+			</div>
+
+			<div class="row">
+				<img src="img/portfolio2.jpg">
+				<div class="layer">
+					<h5>M5 rekesz</h5>
+					<p>Méretek:
+
+						600 x 400 x 100 mm
+
+						Súly:
+
+						1 kg
+
+						Teherbírás:
+
+						15kg</p>
+					<!--<a href="#"><i class='bx bx-link-external'></i></a>-->
+				</div>
+			</div>
+
+			<div class="row">
+				<img src="img/portfolio3.jpg">
+				<div class="layer">
+					<h5>Export egyutas rekesz</h5>
+					<p>Méretek:
+
+						400 x 300 x 150 mm
+						Terhelhetőség:
+
+						6kg</p>
+					<!--<a href="#"><i class='bx bx-link-external'></i></a>-->
+				</div>
+			</div>
+
+			<div class="row">
+				<img src="img/portfolio4.jpg">
+				<div class="layer">
+					<h5>M10 rekesz</h5>
+					<p>Méretek:
+
+						600 x 400 x 150 mm
+
+						Súly:
+
+						1,2kg
+
+						Teherbírás:
+
+						15kg</p>
+					<!--<a href="#"><i class='bx bx-link-external'></i></a>-->
+				</div>
+			</div>
+
+			<div class="row">
+				<img src="img/JET785e_1.jpg">
+				<div class="layer">
+					<h5>Műanyag konténer perforált JET785E</h5>
+					<p>Méret: 
+						
+						1000x1200x785mm
+
+						Tára: 31kg
+
+						Teherbírás:
+
+						Terhelhetőség: 500kg (5000kg egymásra pakolva)
+					
+						4 talpas vagy csúszótalpas kivitel
+					</p>
+				</div>
+			</div>
+
+			<div class="row">
+				<img src="img/JET580_1.jpg">
+				<div class="layer">
+					<h5>Műanyag konténer perforált JET580</h5>
+					<p>Méret: 
+						
+						1000x1200x580mm
+
+						Tára: 26kg
+
+						Teherbírás:
+
+						Terhelhetőség: 500kg (5000kg egymásra pakolva)
+					
+						4 talpas vagy csúszótalpas kivitel
+					</p>
+				</div>
+			</div>
+
+			<div class="row">
+				<img src="img/JET785z_1.jpg">
+				<div class="layer">
+					<h5>Műanyag konténer zárt JET785Z</h5>
+					<p>Méret: 
+						
+						1000x1200x785mm
+
+						Tára: 33kg
+
+						Teherbírás:
+
+						Terhelhetőség: 500kg (5000kg egymásra pakolva)
+					
+						4 talpas vagy csúszótalpas kivitel
+					</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="services1" id="services1">
+		<div class="main-text">
+			<p>JetPack</p>
+			<h2>Szolgáltatásaink<span></span></h2>
+		</div>
+
+		<div class="service-content1">
+			<div class="box1">
+				<h3>Műanyag rekeszek gyártása</h3>
+				<p>Cégünk 10 éve foglalkozik műanyag fröccsöntéssel, eközben gépparkunkat folyamatosan növeltük, hogy
+					minden piaci igényt ki tudjunk elégíteni. A technológiai fejlesztéseinkkel, valamint
+					energiatakarékos gyártó gépeinkkel biztosítani tudjuk a gyors, pontos, kiváló minőségű termékek
+					rövid határidőn belüli gyártását.</p>
+			</div>
+
+			<div class="box1">
+				<h3>Fröccsöntés, bérgyártás</h3>
+				<p>Saját termékeink mellett bérgyártással is foglalkozunk piacképes árakon, akár nagy szériás termékeket
+					is rövid határidőn belül szállítani tudunk.
+
+					Vállaljuk hőre lágyuló műanyagok fröccsöntését, összeszerelését, csomagolását.
+
+					Szakembereinkkel, beszállítóinkkal, partnereinkkel, valamint kialakult szerviz hátterünkkel
+					garantálni tudjuk a gyors és folyamatos termék előállítást, legyen szó bármilyen műanyag termékről.
+
+					800 tonna záróerőig, valamint 2500g terméksúlyig vállalunk bérmunkát.</p>
+			</div>
+		</div>
+	</section>
+
+
+	<section class="services" id="services">
+		<div class="main-text">
+			<p>JetPack</p>
+			<h2>Rólunk<span></span></h2>
+		</div>
+
+		<div class="service-content">
+			<div class="box">
+				<div class="s-icons">
+					<i class='bx bx-mobile-alt'></i>
+				</div>
+				<h3>Cégünk</h3>
+				<p>műanyag rekeszek, ládák, egyéb műanyag termékek gyártásával,
+
+					kereskedelmével, valamint műanyag felvásárlással foglalkozik.</p>
+
+			</div>
+
+			<div class="box">
+				<div class="s-icons">
+					<i class='bx bx-code-alt'></i>
+				</div>
+				<h3>Piacképességünk</h3>
+				<p> megőrzése céljából termékeinket direktben értékesítjük, viszonteladó
+
+					partnerek nélkül, így tudjuk termékeink árát folyamatosan versenyképesen tartani.</p>
+
+			</div>
+
+			<div class="box">
+				<div class="s-icons">
+					<i class='bx bx-edit-alt'></i>
+				</div>
+				<h3>Folyamatosan</h3>
+				<p> fejlődő gépparkunknak köszönhetően egyedülállóan állandó, nagy
+
+					raktárkészlettel rendelkezünk, ezáltal nagyon rövid határidőn belül eleget tudunk tenni a
+
+					megrendeléseknek. Igény esetén pedig saját autóinkkal ki tudjuk szállítani a megrendelt
+
+					termékeinket.</p>
+
+			</div>
+
+		</div>
+	</section>
+
+	<section class="contact" id="contact">
+		<div class="contact-text">
+			<h2>Lépjen kapcsolatba <span>velünk!</span></h2>
+			<h4>Kérjen árajánlatot még ma!</h4>
+			<p>Árajánlat kérés kizárólag termék és mennyiség pontos megjelölésével!</p>
+			<div class="list">
+				<li><a href="#">+36 70 422 5834</a></li>
+				<li><a href="#">muanyagrekesz@gmail.com</a></li>
+				<li><a href="#">6787 Zákányszék, Külterület 419. - előzetes egyeztetés
+						szükséges</a></li>
+
+
+				<li><a href="#">Jet Fruit Kft.</a></li>
+				<li><a href="#">Székhely: 2600 Vác, Szent László út 10.</a></li>
+				<li><a href="#">Telephely: 6787 Zákányszék, Külterület 419.</a></li>
+				<li><a href="#">Adószám: 25165773-2-13</a></li>
+				<li><a href="#">Cégjegyzékszám: 13-09-185502</a></li>
+			</div>
+
+			<div class="contact-icons">
+				<a href="https://www.facebook.com/profile.php?id=100089619495895"><i class='bx bxl-facebook'></i></a>
+			</div>
+		</div>
+
+		<div class="contact-form">
+			<form action="send.php" method="post">
+				<input type="name" name="name" id="fullName" placeholder="Név" required>
+				<input type="email" name="email" id="email_id" placeholder="E-mail cím" required>
+				<input type="phone" name="phone" placeholder="Telefonszám" required>
+				<textarea name="message" id="message" cols="35" rows="10" placeholder="Miben segíthetünk?"
+					required></textarea>
+				<div class="g-recaptcha" data-sitekey="6LdHJT8lAAAAAEBHCFvRei_JmG2-T4Fr7b4IbOS8"></div>
+				<br />
+				<input type="submit" name="send" value="Küldés" class="submit" required>
+			</form>
+		</div>
+	</section>
+
+	<div class="map" id="map">
+		<iframe
+			src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d11028.787845883804!2d19.884914!3d46.2860611!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47447d8a1f1c82e5%3A0xc59f69d57040acd0!2sJet%20Fruit%20Kft.%20-%20JetPack%20m%C5%B1anyag%20rekeszek!5e0!3m2!1shu!2shu!4v1678473569065!5m2!1shu!2shu"
+			width="1300" height="500" style="border:0;" allowfullscreen="" loading="lazy"
+			referrerpolicy="no-referrer-when-downgrade"></iframe>
+	</div>
+
+	<section class="services1" id="offerservice">
+		<div class="main-text">
+			<p>JetPack</p>
+			<h2>Ajánlatkérő<span></span></h2>
+		</div>
+
+		<div class="contact-form2">
+			<form action="send.php" method="post">
+				<label for="products"></label>
+				<select type="products" name="products" id="products" placeholder="Termék" required>
+					<optgroup label="Rekeszek">
+						<option name="M30" value="M30">M30 rekesz</option>
+						<option name="M5" value="M5">M5 rekesz</option>
+						<option name="Export" value="Export">Export egyutas rekesz</option>
+						<option name="M10" value="M10">M10 rekesz</option>
+						<option name="JET785E" value="JET785E">JET785E</option>
+						<option name="JET580" value="JET580">JET580</option>
+						<option name="JET785Z" value="JET785Z">JET785Z</option>
+					</optgroup>
+					<input type="name" name="name" id="fullName" placeholder="Név" required>
+					<input type="quantity" name="quantity" id="quantity" placeholder="Mennyiség" required>
+					<input type="email" name="email" id="email_id" placeholder="E-mail cím" required>
+					<input type="phone" name="phone" placeholder="Telefonszám" required>
+					<textarea name="message" id="message2" cols="35" rows="10" placeholder="Megjegyzés"
+						required></textarea>
+					<div class="g-recaptcha" data-sitekey="6LdHJT8lAAAAAEBHCFvRei_JmG2-T4Fr7b4IbOS8"></div>
+					<br />
+					<input type="submit" name="send2" value="Küldés" class="submit" required>
+			</form>
+		</div>
+	</section>
+
+
+	<!----end section design--->
+	<section class="end">
+		<div class="last-text">
+			<p>Copyright @ 2023 Jet-Pack Hungary. Minden jog fenntartva</p>
+		</div>
+
+		<div class="back-to-top">
+			<a href="#home"><i class='bx bx-up-arrow-alt'></i></a>
+		</div>
+	</section>
+
+	<!---custom css link---->
+	<script type="text/javascript" src="js/script.js"></script>
+	<script>
+		!function (f, b, e, v, n, t, s) {
+			if (f.fbq) return; n = f.fbq = function () {
+				n.callMethod ?
+				n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+			};
+			if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+			n.queue = []; t = b.createElement(e); t.async = !0;
+			t.src = v; s = b.getElementsByTagName(e)[0];
+			s.parentNode.insertBefore(t, s)
+		}(window, document, 'script',
+			'https://connect.facebook.net/en_US/fbevents.js');
+		fbq('init', '589095320102763');
+		fbq('track', 'PageView');
+	</script>
+	<noscript><img height="1" width="1" style="display:none"
+			src="https://www.facebook.com/tr?id=589095320102763&ev=PageView&noscript=1" /></noscript>
+	<script async src="https://www.googletagmanager.com/gtag/js?id=AW-725355427"></script>
+	<script> window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments); } gtag('js', new Date()); gtag('config', 'AW-725355427'); </script>
+</body>
+
+</html>
