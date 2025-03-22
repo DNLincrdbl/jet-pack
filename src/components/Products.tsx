@@ -6,7 +6,7 @@ import Scene from '@/components/Scene';
 
 const Products = () => {
   return (
-    <section id="products">
+    <section id="products" className="section">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Modern Product Showcase */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">

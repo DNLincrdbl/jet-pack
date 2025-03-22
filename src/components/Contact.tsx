@@ -80,26 +80,24 @@ export default function Contact() {
               </div>
               <div className="flex items-center space-x-4">
                 <FaEnvelope size={24} color="#3b82f6" />
-                <p>muanyagrekesz@gmail.com</p>
+                <p>info@jetpack.hu</p>
               </div>
-              <div className="flex items-start space-x-4">
+              <div className="flex items-center space-x-4">
                 <FaMapMarkerAlt size={24} color="#3b82f6" />
-                <p>6787 Zákányszék, Külterület 419. - előzetes egyeztetés szükséges</p>
+                <p>1044 Budapest, Ipari park u. 2.</p>
               </div>
-              <div className="border-t border-white/10 my-4"></div>
               <div className="flex items-center space-x-4">
                 <FaBuilding size={24} color="#3b82f6" />
                 <div>
-                  <p className="font-semibold">Jet Fruit Kft.</p>
-                  <p className="text-sm text-gray-400">Székhely: 2600 Vác, Szent László út 10.</p>
-                  <p className="text-sm text-gray-400">Telephely: 6787 Zákányszék, Külterület 419.</p>
+                  <p>Adószám:</p>
+                  <p>69851833-2-26</p>
                 </div>
               </div>
               <div className="flex items-center space-x-4">
                 <FaIdCard size={24} color="#3b82f6" />
                 <div>
-                  <p className="text-sm">Adószám: 25165773-2-13</p>
-                  <p className="text-sm">Cégjegyzékszám: 13-09-185502</p>
+                  <p>Cégjegyzékszám:</p>
+                  <p>06-09-026529</p>
                 </div>
               </div>
             </div>

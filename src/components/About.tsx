@@ -31,17 +31,13 @@ export default function About() {
   };
 
   return (
-    <section id="about" className="relative py-20 overflow-hidden">
-      {/* Animated background elements */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black via-blue-900/10 to-black" />
-      <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]" />
-      
+    <section id="about" className="section">
       {/* Animated gradient orbs */}
       <motion.div
-        className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl"
+        className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"
         animate={{
           scale: [1, 1.2, 1],
-          opacity: [0.3, 0.5, 0.3],
+          opacity: [0.2, 0.3, 0.2],
         }}
         transition={{
           duration: 8,
@@ -50,10 +46,10 @@ export default function About() {
         }}
       />
       <motion.div
-        className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl"
+        className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl"
         animate={{
           scale: [1.2, 1, 1.2],
-          opacity: [0.5, 0.3, 0.5],
+          opacity: [0.3, 0.2, 0.3],
         }}
         transition={{
           duration: 8,
