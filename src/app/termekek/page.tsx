@@ -186,8 +186,29 @@ export default function Products() {
   };
 
   return (
-    <main className="min-h-screen py-32">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <main className="min-h-screen py-32 relative">
+      {/* Background Effects */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        {/* Main gradient background */}
+        <div className="absolute inset-0 bg-[#0B0B1E]" />
+        
+        {/* Subtle grid pattern */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_-20%,#000_70%,transparent_110%)] opacity-20" />
+        
+        {/* Main Gradient Blooms */}
+        <div className="absolute w-[800px] h-[800px] -top-[200px] -right-[200px] bg-blue-500/10 rounded-full blur-[120px] opacity-30" />
+        <div className="absolute w-[600px] h-[600px] top-[40%] -left-[100px] bg-purple-500/10 rounded-full blur-[100px] opacity-20" />
+        
+        {/* Additional Medium Blooms */}
+        <div className="absolute w-[400px] h-[400px] bottom-[10%] right-[5%] bg-blue-400/5 rounded-full blur-[80px]" />
+        <div className="absolute w-[300px] h-[300px] top-[30%] right-[20%] bg-purple-400/5 rounded-full blur-[60px]" />
+        
+        {/* Small Accent Blooms */}
+        <div className="absolute w-[200px] h-[200px] bottom-[20%] left-[10%] bg-blue-300/5 rounded-full blur-[40px]" />
+        <div className="absolute w-[150px] h-[150px] top-[60%] right-[30%] bg-purple-300/5 rounded-full blur-[30px]" />
+      </div>
+
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Back to Home Button */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -311,15 +332,21 @@ export default function Products() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md overflow-y-auto"
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#0a0a0a]/90 backdrop-blur-md overflow-y-auto"
             onClick={() => setSelectedProduct(null)}
           >
+            {/* Gradient Bloom Effects */}
+            <div className="absolute inset-0 overflow-hidden pointer-events-none">
+              <div className="absolute w-[500px] h-[500px] -top-48 -left-24 bg-blue-500/20 rounded-full blur-3xl"></div>
+              <div className="absolute w-[400px] h-[400px] -bottom-32 -right-16 bg-purple-500/20 rounded-full blur-3xl"></div>
+            </div>
+
             <motion.div
               variants={modalVariants}
               initial="hidden"
               animate="visible"
               exit="exit"
-              className="relative w-full max-w-4xl bg-white/10 rounded-2xl overflow-hidden backdrop-blur-xl border border-white/20 my-4"
+              className="relative w-full max-w-4xl bg-white/[0.02] rounded-2xl overflow-hidden backdrop-blur-xl border border-white/10 my-4 shadow-[0_0_50px_-12px_rgba(0,0,0,0.25)]"
               onClick={(e: React.MouseEvent<HTMLDivElement>) => e.stopPropagation()}
             >
               <motion.button

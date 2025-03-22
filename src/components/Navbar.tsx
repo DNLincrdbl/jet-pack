@@ -39,9 +39,9 @@ const Navbar = () => {
         transition={{ duration: 0.5 }}
         className={`fixed w-full z-50 transition-all duration-300 before:absolute before:inset-0 before:w-full before:h-full before:transition-colors before:duration-300 ${
           isScrolled
-            ? 'py-4 before:bg-black/50 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.3)]'
-            : 'py-6 before:bg-black/20'
-        } backdrop-blur-lg border-b border-white/10`}
+            ? 'py-4 before:bg-gradient-to-b before:from-black/95 before:via-black/95 before:to-black/90 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.5)]'
+            : 'py-6 before:bg-gradient-to-b before:from-black/90 before:via-black/90 before:to-black/85'
+        } backdrop-blur-2xl border-b border-white/10`}
       >
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center">
