@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+html,
+body {
+  overscroll-behavior: none;
+  touch-action: pan-y;
+  -webkit-overflow-scrolling: touch;
+  overflow-x: hidden;
+  width: 100%;
+  min-height: 100vh;
+}
+
 :root {
   /* Dark mode colors (default) */
   --foreground-rgb: 255, 255, 255;
@@ -47,7 +57,6 @@ body {
   min-height: 100vh;
   transition: all 0.3s ease;
   position: relative;
-  overflow-x: hidden;
 }
 
 /* Fixed background light spots */

@@ -16,8 +16,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="hu">
-      <body className={inter.className}>
+    <html lang="hu" className="scroll-smooth">
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+      </head>
+      <body
+        className={`${inter.className} bg-[#0a0a0a] text-white overflow-x-hidden`}
+      >
         <ClientLayout>
           {children}
         </ClientLayout>

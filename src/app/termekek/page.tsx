@@ -311,7 +311,7 @@ export default function Products() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md"
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md overflow-y-auto"
             onClick={() => setSelectedProduct(null)}
           >
             <motion.div
@@ -319,7 +319,7 @@ export default function Products() {
               initial="hidden"
               animate="visible"
               exit="exit"
-              className="relative w-full max-w-4xl bg-white/10 rounded-2xl overflow-hidden backdrop-blur-xl border border-white/20"
+              className="relative w-full max-w-4xl bg-white/10 rounded-2xl overflow-hidden backdrop-blur-xl border border-white/20 my-4"
               onClick={(e: React.MouseEvent<HTMLDivElement>) => e.stopPropagation()}
             >
               <motion.button
@@ -334,8 +334,8 @@ export default function Products() {
                 <IoClose className="w-6 h-6" />
               </motion.button>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 p-8">
-                <div className="relative h-[400px] rounded-xl overflow-hidden">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-4 sm:p-6 md:p-8">
+                <div className="relative h-[300px] sm:h-[350px] md:h-[400px] rounded-xl overflow-hidden">
                   <Image
                     src={selectedProduct.image}
                     alt={selectedProduct.name}
@@ -345,13 +345,13 @@ export default function Products() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
                 </div>
 
-                <div className="space-y-6">
+                <div className="space-y-4 sm:space-y-6">
                   <div>
-                    <h3 className="text-2xl font-bold text-white mb-2">{selectedProduct.name}</h3>
-                    <div className="h-1 w-20 bg-blue-500 rounded-full mb-6"></div>
+                    <h3 className="text-xl sm:text-2xl font-bold text-white mb-2">{selectedProduct.name}</h3>
+                    <div className="h-1 w-20 bg-blue-500 rounded-full mb-4 sm:mb-6"></div>
                   </div>
 
-                  <div className="space-y-4">
+                  <div className="space-y-3 sm:space-y-4">
                     <div className="flex items-center space-x-3 text-gray-300">
                       <div className="bg-blue-500/10 p-2 rounded-lg">
                         <FaRuler className="w-5 h-5 text-blue-400" />
@@ -382,12 +382,12 @@ export default function Products() {
                   </div>
 
                   <div>
-                    <h4 className="text-lg font-semibold text-white mb-4">Jellemzők</h4>
-                    <div className="grid grid-cols-2 gap-3">
+                    <h4 className="text-lg font-semibold text-white mb-3 sm:mb-4">Jellemzők</h4>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
                       {selectedProduct.details.features.map((feature, index) => (
                         <div
                           key={index}
-                          className="flex items-center space-x-2 text-gray-300 bg-white/5 rounded-lg p-3"
+                          className="flex items-center space-x-2 text-gray-300 bg-white/5 rounded-lg p-2 sm:p-3 text-sm"
                         >
                           <span className="w-2 h-2 bg-blue-400 rounded-full"></span>
                           <span>{feature}</span>
@@ -396,11 +396,11 @@ export default function Products() {
                     </div>
                   </div>
 
-                  <div className="flex gap-4 mt-8">
+                  <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-6 sm:mt-8">
                     <motion.button
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
-                      className="flex-1 bg-gradient-to-r from-blue-500 to-blue-600 text-white py-3 px-6 rounded-lg font-medium transition-colors hover:from-blue-600 hover:to-blue-700"
+                      className="flex-1 bg-gradient-to-r from-blue-500 to-blue-600 text-white py-2.5 sm:py-3 px-4 sm:px-6 rounded-lg font-medium transition-colors hover:from-blue-600 hover:to-blue-700 text-sm sm:text-base"
                       onClick={() => {
                         setSelectedProduct(null);
                         document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
@@ -411,7 +411,7 @@ export default function Products() {
                     <motion.button
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
-                      className="bg-white/10 text-white py-3 px-6 rounded-lg font-medium border border-white/20 hover:bg-white/20 transition-colors"
+                      className="bg-white/10 text-white py-2.5 sm:py-3 px-4 sm:px-6 rounded-lg font-medium border border-white/20 hover:bg-white/20 transition-colors text-sm sm:text-base"
                       onClick={() => setSelectedProduct(null)}
                     >
                       Bezárás
