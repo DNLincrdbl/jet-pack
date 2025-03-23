@@ -31,32 +31,51 @@ export default function About() {
   };
 
   return (
-    <section id="about" className="section">
-      {/* Animated gradient orbs */}
-      <motion.div
-        className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"
-        animate={{
-          scale: [1, 1.2, 1],
-          opacity: [0.2, 0.3, 0.2],
-        }}
-        transition={{
-          duration: 8,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-      />
-      <motion.div
-        className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl"
-        animate={{
-          scale: [1.2, 1, 1.2],
-          opacity: [0.3, 0.2, 0.3],
-        }}
-        transition={{
-          duration: 8,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-      />
+    <section id="about" className="section overflow-hidden">
+      {/* Parallax Background Elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {/* Floating shapes */}
+        <motion.div
+          animate={{
+            y: [-20, 20, -20],
+            x: [-10, 10, -10],
+            rotate: [0, 5, 0],
+          }}
+          transition={{
+            duration: 10,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="absolute -top-20 -left-20 w-60 h-60 bg-blue-500/5 rounded-full blur-3xl"
+        />
+        <motion.div
+          animate={{
+            y: [20, -20, 20],
+            x: [10, -10, 10],
+            rotate: [0, -5, 0],
+          }}
+          transition={{
+            duration: 12,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="absolute -bottom-20 -right-20 w-80 h-80 bg-purple-500/5 rounded-full blur-3xl"
+        />
+        
+        {/* Grid pattern with parallax */}
+        <motion.div
+          animate={{
+            y: [-10, 10, -10],
+            x: [-5, 5, -5],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:3rem_3rem] opacity-20"
+        />
+      </div>
 
       <div className="container mx-auto px-4 relative">
         <motion.div
@@ -89,13 +108,25 @@ export default function About() {
         >
           <motion.div
             variants={itemVariants}
-            whileHover={{ scale: 1.02 }}
-            className="group relative bg-white/5 p-8 rounded-2xl backdrop-blur-sm border border-white/10 hover:border-blue-500/50 transition-all duration-300"
+            whileHover={{ scale: 1.02, y: -5 }}
+            className="group relative bg-white/5 p-8 rounded-2xl backdrop-blur-sm border border-white/10 hover:border-blue-500/50 transition-all duration-500"
           >
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
+              className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+            />
             <div className="relative">
-              <div className="text-4xl mb-6 transform group-hover:scale-110 transition-transform duration-300">🏢</div>
-              <h3 className="text-2xl font-semibold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-purple-500">Cégünk</h3>
+              <motion.div
+                whileHover={{ scale: 1.1, rotate: 5 }}
+                className="text-4xl mb-6 transform group-hover:scale-110 transition-transform duration-300"
+              >
+                🏢
+              </motion.div>
+              <h3 className="text-2xl font-semibold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-purple-500">
+                Cégünk
+              </h3>
               <p className="text-gray-300 leading-relaxed">
                 Műanyag rekeszek, ládák, egyéb műanyag termékek gyártásával,
                 kereskedelmével, valamint műanyag felvásárlással foglalkozik.
@@ -105,13 +136,25 @@ export default function About() {
 
           <motion.div
             variants={itemVariants}
-            whileHover={{ scale: 1.02 }}
-            className="group relative bg-white/5 p-8 rounded-2xl backdrop-blur-sm border border-white/10 hover:border-blue-500/50 transition-all duration-300"
+            whileHover={{ scale: 1.02, y: -5 }}
+            className="group relative bg-white/5 p-8 rounded-2xl backdrop-blur-sm border border-white/10 hover:border-blue-500/50 transition-all duration-500"
           >
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
+              className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+            />
             <div className="relative">
-              <div className="text-4xl mb-6 transform group-hover:scale-110 transition-transform duration-300">💪</div>
-              <h3 className="text-2xl font-semibold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-purple-500">Piacképességünk</h3>
+              <motion.div
+                whileHover={{ scale: 1.1, rotate: -5 }}
+                className="text-4xl mb-6 transform group-hover:scale-110 transition-transform duration-300"
+              >
+                💪
+              </motion.div>
+              <h3 className="text-2xl font-semibold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-purple-500">
+                Piacképességünk
+              </h3>
               <p className="text-gray-300 leading-relaxed">
                 Megőrzése céljából termékeinket direktben értékesítjük, viszonteladó
                 partnerek nélkül, így tudjuk termékeink árát folyamatosan versenyképesen tartani.
@@ -121,13 +164,25 @@ export default function About() {
 
           <motion.div
             variants={itemVariants}
-            whileHover={{ scale: 1.02 }}
-            className="group relative bg-white/5 p-8 rounded-2xl backdrop-blur-sm border border-white/10 hover:border-blue-500/50 transition-all duration-300"
+            whileHover={{ scale: 1.02, y: -5 }}
+            className="group relative bg-white/5 p-8 rounded-2xl backdrop-blur-sm border border-white/10 hover:border-blue-500/50 transition-all duration-500"
           >
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
+              className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+            />
             <div className="relative">
-              <div className="text-4xl mb-6 transform group-hover:scale-110 transition-transform duration-300">🚀</div>
-              <h3 className="text-2xl font-semibold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-purple-500">Folyamatosan</h3>
+              <motion.div
+                whileHover={{ scale: 1.1, rotate: 5 }}
+                className="text-4xl mb-6 transform group-hover:scale-110 transition-transform duration-300"
+              >
+                🚀
+              </motion.div>
+              <h3 className="text-2xl font-semibold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-purple-500">
+                Folyamatosan
+              </h3>
               <p className="text-gray-300 leading-relaxed">
                 Fejlődő gépparkunknak köszönhetően egyedülállóan állandó, nagy
                 raktárkészlettel rendelkezünk, ezáltal nagyon rövid határidőn belül eleget tudunk tenni a

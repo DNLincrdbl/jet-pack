@@ -39,8 +39,8 @@ const Navbar = () => {
         transition={{ duration: 0.5 }}
         className={`fixed w-full z-50 transition-all duration-300 before:absolute before:inset-0 before:w-full before:h-full before:transition-colors before:duration-300 ${
           isScrolled
-            ? 'py-4 before:bg-gradient-to-b before:from-black/95 before:via-black/95 before:to-black/90 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.5)]'
-            : 'py-6 before:bg-gradient-to-b before:from-black/90 before:via-black/90 before:to-black/85'
+            ? 'py-3 before:bg-gradient-to-b before:from-black/95 before:via-black/95 before:to-black/90 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.5)]'
+            : 'py-4 before:bg-gradient-to-b before:from-black/90 before:via-black/90 before:to-black/85'
         } backdrop-blur-2xl border-b border-white/10`}
       >
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -48,9 +48,9 @@ const Navbar = () => {
             {/* Logo */}
             <motion.div
               whileHover={{ scale: 1.05 }}
-              className="flex items-center space-x-3"
+              className="flex items-center space-x-2.5"
             >
-              <div className="relative w-10 h-10 bg-white/10 backdrop-blur-xl rounded-xl p-1.5 border border-white/20">
+              <div className="relative w-9 h-9 bg-white/10 backdrop-blur-xl rounded-xl p-1.5 border border-white/20">
                 <Image
                   src="/jetpack-bg.png"
                   alt="JetPack Logo"
@@ -58,11 +58,11 @@ const Navbar = () => {
                   className="object-contain"
                 />
               </div>
-              <span className="text-2xl font-bold text-white drop-shadow-lg">JetPack</span>
+              <span className="text-xl font-bold text-white drop-shadow-lg">JetPack</span>
             </motion.div>
 
             {/* Navigation Links */}
-            <div className="hidden md:flex items-center space-x-8">
+            <div className="hidden md:flex items-center space-x-7">
               {[
                 { name: 'Kezdőlap', href: 'home' },
                 { name: 'Termékeink', href: '/termekek' },

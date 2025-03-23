@@ -56,50 +56,143 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="relative py-20 bg-black/10 backdrop-blur-sm">
+    <section id="contact" className="relative py-20 overflow-hidden">
+      {/* Animated Background */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {/* Gradient Orbs */}
+        <motion.div
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.1, 0.2, 0.1],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="absolute -top-1/4 -right-1/4 w-1/2 h-1/2 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-full blur-3xl"
+        />
+        <motion.div
+          animate={{
+            scale: [1.2, 1, 1.2],
+            opacity: [0.2, 0.1, 0.2],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="absolute -bottom-1/4 -left-1/4 w-1/2 h-1/2 bg-gradient-to-tr from-purple-500/10 to-blue-500/10 rounded-full blur-3xl"
+        />
+
+        {/* Grid Pattern */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:3rem_3rem] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_-20%,#000_70%,transparent_110%)] opacity-20" />
+      </div>
+
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold mb-4">Lépjen kapcsolatba <span className="text-blue-500">velünk!</span></h2>
-          <p className="text-gray-400">Kérjen árajánlatot még ma!</p>
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="text-4xl font-bold mb-4"
+          >
+            Lépjen kapcsolatba <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">velünk!</span>
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="text-gray-400"
+          >
+            Kérjen árajánlatot még ma!
+          </motion.p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
           {/* Elérhetőségek */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="bg-white/5 p-8 rounded-2xl backdrop-blur-sm border border-white/10 lg:min-h-[600px]"
+            className="bg-white/5 p-8 rounded-2xl backdrop-blur-sm border border-white/10 lg:min-h-[600px] hover:border-blue-500/50 transition-all duration-300"
           >
-            <h3 className="text-2xl font-semibold mb-6">Elérhetőségeink</h3>
-            <div className="space-y-4">
-              <div className="flex items-center space-x-4">
-                <FaPhone size={24} color="#3b82f6" />
-                <p>+36 70 422 5834</p>
-              </div>
-              <div className="flex items-center space-x-4">
-                <FaEnvelope size={24} color="#3b82f6" />
-                <p>info@jetpack.hu</p>
-              </div>
-              <div className="flex items-center space-x-4">
-                <FaMapMarkerAlt size={24} color="#3b82f6" />
-                <p>1044 Budapest, Ipari park u. 2.</p>
-              </div>
-              <div className="flex items-center space-x-4">
-                <FaBuilding size={24} color="#3b82f6" />
-                <div>
-                  <p>Adószám:</p>
-                  <p>69851833-2-26</p>
+            <h3 className="text-2xl font-semibold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
+              Elérhetőségeink
+            </h3>
+            <div className="space-y-6">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                className="flex items-start space-x-4"
+              >
+                <div className="flex-shrink-0 w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center">
+                  <span className="text-2xl">📍</span>
                 </div>
-              </div>
-              <div className="flex items-center space-x-4">
-                <FaIdCard size={24} color="#3b82f6" />
                 <div>
-                  <p>Cégjegyzékszám:</p>
-                  <p>06-09-026529</p>
+                  <h4 className="text-lg font-medium mb-1">Cím</h4>
+                  <p className="text-gray-400">
+                    1234 Budapest,<br />
+                    Példa utca 123.
+                  </p>
                 </div>
-              </div>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.3 }}
+                className="flex items-start space-x-4"
+              >
+                <div className="flex-shrink-0 w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center">
+                  <span className="text-2xl">📞</span>
+                </div>
+                <div>
+                  <h4 className="text-lg font-medium mb-1">Telefon</h4>
+                  <p className="text-gray-400">+36 (1) 123-4567</p>
+                </div>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.4 }}
+                className="flex items-start space-x-4"
+              >
+                <div className="flex-shrink-0 w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center">
+                  <span className="text-2xl">✉️</span>
+                </div>
+                <div>
+                  <h4 className="text-lg font-medium mb-1">Email</h4>
+                  <p className="text-gray-400">info@jetpack.hu</p>
+                </div>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.5 }}
+                className="flex items-start space-x-4"
+              >
+                <div className="flex-shrink-0 w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center">
+                  <span className="text-2xl">⏰</span>
+                </div>
+                <div>
+                  <h4 className="text-lg font-medium mb-1">Nyitvatartás</h4>
+                  <p className="text-gray-400">
+                    H-P: 8:00 - 16:00<br />
+                    Szo-V: Zárva
+                  </p>
+                </div>
+              </motion.div>
             </div>
           </motion.div>
 
@@ -109,159 +202,145 @@ export default function Contact() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="bg-white/5 p-8 rounded-2xl backdrop-blur-sm border border-white/10 lg:min-h-[600px]"
+            className="lg:col-span-2 bg-white/5 p-8 rounded-2xl backdrop-blur-sm border border-white/10 hover:border-blue-500/50 transition-all duration-300"
           >
-            <div className="flex space-x-4 mb-6">
+            <div className="flex items-center space-x-4 mb-8">
               <button
                 onClick={() => setFormType('contact')}
-                className={`flex-1 py-2 px-4 rounded-lg transition-colors ${
+                className={`flex-1 py-3 px-6 rounded-xl text-center transition-all duration-300 ${
                   formType === 'contact'
-                    ? 'bg-blue-500 text-white'
-                    : 'bg-white/5 text-gray-400 hover:bg-white/10'
+                    ? 'bg-gradient-to-r from-blue-500 to-blue-600 text-white'
+                    : 'bg-white/10 text-gray-300 hover:bg-white/20'
                 }`}
               >
-                Kapcsolat
+                Kapcsolatfelvétel
               </button>
               <button
                 onClick={() => setFormType('quote')}
-                className={`flex-1 py-2 px-4 rounded-lg transition-colors ${
+                className={`flex-1 py-3 px-6 rounded-xl text-center transition-all duration-300 ${
                   formType === 'quote'
-                    ? 'bg-blue-500 text-white'
-                    : 'bg-white/5 text-gray-400 hover:bg-white/10'
+                    ? 'bg-gradient-to-r from-blue-500 to-blue-600 text-white'
+                    : 'bg-white/10 text-gray-300 hover:bg-white/20'
                 }`}
               >
                 Árajánlatkérés
               </button>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div>
-                <input
-                  type="text"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  placeholder="Név"
-                  required
-                  className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-colors"
-                />
-              </div>
-              <div>
-                <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  placeholder="E-mail cím"
-                  required
-                  className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-colors"
-                />
-              </div>
-              <div>
-                <input
-                  type="tel"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  placeholder="Telefonszám"
-                  required
-                  className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-colors"
-                />
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <label className="block text-sm font-medium mb-2">Név</label>
+                  <input
+                    type="text"
+                    name="name"
+                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:border-blue-500/50 focus:ring-0 transition-all duration-300"
+                    placeholder="Az Ön neve"
+                  />
+                </motion.div>
+                <motion.div
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5, delay: 0.1 }}
+                >
+                  <label className="block text-sm font-medium mb-2">Email</label>
+                  <input
+                    type="email"
+                    name="email"
+                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:border-blue-500/50 focus:ring-0 transition-all duration-300"
+                    placeholder="pelda@email.com"
+                  />
+                </motion.div>
               </div>
 
               {formType === 'quote' && (
-                <>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5 }}
+                  className="grid grid-cols-1 md:grid-cols-2 gap-6"
+                >
                   <div>
+                    <label className="block text-sm font-medium mb-2">Termék típusa</label>
                     <select
-                      name="product"
-                      value={formData.product}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-colors"
+                      name="productType"
+                      className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-blue-500/50 focus:ring-0 transition-all duration-300"
                     >
                       <option value="">Válasszon terméket</option>
-                      <optgroup label="Rekeszek">
-                        <option value="M30">M30 rekesz</option>
-                        <option value="M5">M5 rekesz</option>
-                        <option value="Export">Export egyutas rekesz</option>
-                        <option value="M10">M10 rekesz</option>
-                        <option value="JET785E">JET785E</option>
-                        <option value="JET580">JET580</option>
-                        <option value="JET785Z">JET785Z</option>
-                      </optgroup>
+                      <option value="rekesz">Műanyag rekesz</option>
+                      <option value="lada">Műanyag láda</option>
+                      <option value="egyeb">Egyéb termék</option>
                     </select>
                   </div>
                   <div>
+                    <label className="block text-sm font-medium mb-2">Mennyiség</label>
                     <input
                       type="number"
                       name="quantity"
-                      value={formData.quantity}
-                      onChange={handleChange}
-                      placeholder="Mennyiség"
-                      required
-                      className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-colors"
+                      className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:border-blue-500/50 focus:ring-0 transition-all duration-300"
+                      placeholder="Mennyiség (db)"
                     />
                   </div>
-                </>
+                </motion.div>
               )}
 
-              <div>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+              >
+                <label className="block text-sm font-medium mb-2">Üzenet</label>
                 <textarea
                   name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  placeholder={formType === 'quote' ? "Megjegyzés" : "Üzenet"}
-                  required
-                  rows={4}
-                  className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-colors"
-                />
-              </div>
+                  rows={6}
+                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:border-blue-500/50 focus:ring-0 transition-all duration-300"
+                  placeholder={formType === 'quote' ? 'Részletek az árajánlatkéréshez...' : 'Az Ön üzenete...'}
+                ></textarea>
+              </motion.div>
 
-              {status === 'success' && (
-                <div className="p-4 bg-green-500/10 border border-green-500/20 rounded-lg text-green-500">
-                  Köszönjük megkeresését! Hamarosan felvesszük Önnel a kapcsolatot.
-                </div>
-              )}
-
-              {status === 'error' && (
-                <div className="p-4 bg-red-500/10 border border-red-500/20 rounded-lg text-red-500">
-                  {errorMessage}
-                </div>
-              )}
-
-              <button
-                type="submit"
-                disabled={status === 'loading'}
-                className="w-full py-3 px-6 bg-blue-500 hover:bg-blue-600 text-white rounded-lg font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.3 }}
+                className="flex justify-end"
               >
-                {status === 'loading' ? 'Küldés...' : formType === 'quote' ? 'Árajánlat kérése' : 'Üzenet küldése'}
-              </button>
+                <button
+                  type="submit"
+                  className="bg-gradient-to-r from-blue-500 to-blue-600 text-white px-8 py-4 rounded-xl font-medium hover:from-blue-600 hover:to-blue-700 transition-all duration-300 shadow-lg shadow-blue-500/20"
+                >
+                  {formType === 'quote' ? 'Árajánlat kérése' : 'Üzenet küldése'} →
+                </button>
+              </motion.div>
             </form>
           </motion.div>
-
-          {/* Google Maps */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-            className="bg-white/5 rounded-2xl overflow-hidden border border-white/10 lg:min-h-[600px]"
-          >
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2725.227411523837!2d19.882725276772677!3d46.28606077901241!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47447d8a1f1c82e5%3A0xc59f69d57040acd0!2sJet%20Fruit%20Kft.%20-%20JetPack%20m%C5%B1anyag%20rekeszek!5e0!3m2!1shu!2shu!4v1710799497811!5m2!1shu!2shu"
-              width="100%"
-              height="100%"
-              style={{ 
-                border: 0,
-                filter: 'invert(90%) hue-rotate(180deg) brightness(95%) contrast(85%)'
-              }}
-              allowFullScreen
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              className="w-full h-full"
-            />
-          </motion.div>
         </div>
+
+        {/* Google Maps */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="mt-8 bg-white/5 rounded-2xl overflow-hidden border border-white/10 hover:border-blue-500/50 transition-all duration-300 h-[400px] max-w-7xl mx-auto"
+        >
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2725.227411523837!2d19.882725276772677!3d46.28606077901241!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47447d8a1f1c82e5%3A0xc59f69d57040acd0!2sJet%20Fruit%20Kft.%20-%20JetPack%20m%C5%B1anyag%20rekeszek!5e0!3m2!1shu!2shu!4v1710799497811!5m2!1shu!2shu"
+            width="100%"
+            height="100%"
+            style={{ 
+              border: 0,
+              filter: 'invert(90%) hue-rotate(180deg) brightness(95%) contrast(85%)'
+            }}
+            allowFullScreen
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            className="w-full h-full"
+          />
+        </motion.div>
       </div>
     </section>
   );

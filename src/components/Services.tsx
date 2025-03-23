@@ -1,8 +1,14 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { useInView } from 'react-intersection-observer';
 
 const Services = () => {
+  const [ref, inView] = useInView({
+    triggerOnce: true,
+    threshold: 0.1,
+  });
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -24,17 +30,68 @@ const Services = () => {
     }
   };
 
+  const processSteps = [
+    {
+      icon: "🏭",
+      title: "Gyártás",
+      description: "Modern géppark, hatékony gyártási folyamatok"
+    },
+    {
+      icon: "⚡",
+      title: "Gyors Átfutás",
+      description: "Rövid határidők, pontos teljesítés"
+    },
+    {
+      icon: "🚚",
+      title: "Szállítás",
+      description: "Saját fuvareszközökkel, rugalmas kiszállítás"
+    },
+    {
+      icon: "🤝",
+      title: "Ügyfélszolgálat",
+      description: "Személyre szabott támogatás"
+    }
+  ];
+
   return (
-    <section id="services" className="section">
+    <section id="services" className="section relative overflow-hidden">
+      {/* Animated Background */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <motion.div
+          animate={{
+            scale: [1, 1.1, 1],
+            opacity: [0.1, 0.2, 0.1],
+          }}
+          transition={{
+            duration: 10,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="absolute -top-1/4 -right-1/4 w-1/2 h-1/2 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-full blur-3xl"
+        />
+        <motion.div
+          animate={{
+            scale: [1.1, 1, 1.1],
+            opacity: [0.2, 0.1, 0.2],
+          }}
+          transition={{
+            duration: 10,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="absolute -bottom-1/4 -left-1/4 w-1/2 h-1/2 bg-gradient-to-tr from-purple-500/10 to-blue-500/10 rounded-full blur-3xl"
+        />
+      </div>
+
       <div className="container mx-auto px-4 relative">
         <motion.div
+          ref={ref}
           initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
+          animate={inView ? "visible" : "hidden"}
           variants={containerVariants}
           className="space-y-16"
         >
-          {/* Main Services */}
+          {/* Section Header */}
           <div className="text-center space-y-4">
             <motion.p variants={itemVariants} className="text-blue-400 font-semibold">
               JetPack
@@ -44,53 +101,121 @@ const Services = () => {
             </motion.h2>
           </div>
 
-          <motion.div variants={itemVariants} className="grid md:grid-cols-2 gap-8">
-            <div className="bg-white/5 backdrop-blur-lg rounded-2xl p-8 border border-white/10 hover:bg-white/10 transition-all duration-300">
-              <h3 className="text-2xl font-semibold text-white mb-4">Műanyag rekeszek gyártása</h3>
-              <p className="text-gray-300 leading-relaxed">
-                Cégünk 10 éve foglalkozik műanyag fröccsöntéssel, eközben gépparkunkat folyamatosan növeltük, hogy minden piaci igényt ki tudjunk elégíteni. A technológiai fejlesztéseinkkel, valamint energiatakarékos gyártó gépeinkkel biztosítani tudjuk a gyors, pontos, kiváló minőségű termékek rövid határidőn belüli gyártását.
-              </p>
-            </div>
+          {/* Process Flow */}
+          <motion.div
+            variants={containerVariants}
+            className="grid grid-cols-1 md:grid-cols-4 gap-8 relative"
+          >
+            {/* Connection Lines */}
+            <div className="absolute top-1/2 left-0 w-full h-0.5 bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-blue-500/20 hidden md:block transform -translate-y-1/2" />
+            
+            {processSteps.map((step, index) => (
+              <motion.div
+                key={step.title}
+                variants={itemVariants}
+                whileHover={{ y: -5, scale: 1.02 }}
+                className="relative group"
+              >
+                {/* Step Number */}
+                <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 w-8 h-8 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center text-white text-sm font-bold">
+                  {index + 1}
+                </div>
+                
+                {/* Card */}
+                <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:border-blue-500/50 transition-all duration-300">
+                  <motion.div
+                    whileHover={{ scale: 1.1, rotate: 5 }}
+                    className="text-4xl mb-4"
+                  >
+                    {step.icon}
+                  </motion.div>
+                  <h3 className="text-xl font-semibold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
+                    {step.title}
+                  </h3>
+                  <p className="text-gray-400 text-sm">
+                    {step.description}
+                  </p>
+                </div>
 
-            <div className="bg-white/5 backdrop-blur-lg rounded-2xl p-8 border border-white/10 hover:bg-white/10 transition-all duration-300">
-              <h3 className="text-2xl font-semibold text-white mb-4">Fröccsöntés, bérgyártás</h3>
-              <p className="text-gray-300 leading-relaxed">
-                Saját termékeink mellett bérgyártással is foglalkozunk piacképes árakon, akár nagy szériás termékeket is rövid határidőn belül szállítani tudunk. Vállaljuk hőre lágyuló műanyagok fröccsöntését, összeszerelését, csomagolását. Szakembereinkkel, beszállítóinkkal, partnereinkkel, valamint kialakult szerviz hátterünkkel garantálni tudjuk a gyors és folyamatos termék előállítást, legyen szó bármilyen műanyag termékről. 800 tonna záróerőig, valamint 2500g terméksúlyig vállalunk bérmunkát.
-              </p>
-            </div>
+                {/* Animated Dot */}
+                <motion.div
+                  animate={{
+                    x: [0, 100, 0],
+                    opacity: [0, 1, 0],
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: "linear",
+                    delay: index * 0.5,
+                  }}
+                  className="absolute top-1/2 left-0 w-2 h-2 bg-blue-500 rounded-full hidden md:block"
+                />
+              </motion.div>
+            ))}
           </motion.div>
 
-          {/* Company Info */}
-          <motion.div variants={itemVariants} className="grid md:grid-cols-3 gap-8 mt-16">
-            <div className="bg-white/5 backdrop-blur-lg rounded-2xl p-6 border border-white/10 hover:bg-white/10 transition-all duration-300">
-              <div className="text-blue-400 text-3xl mb-4">
-                <i className='bx bx-mobile-alt'></i>
-              </div>
-              <h3 className="text-xl font-semibold text-white mb-3">Cégünk</h3>
-              <p className="text-gray-300">
-                műanyag rekeszek, ládák, egyéb műanyag termékek gyártásával, kereskedelmével, valamint műanyag felvásárlással foglalkozik.
+          {/* Additional Features */}
+          <motion.div
+            variants={containerVariants}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-16"
+          >
+            <motion.div
+              variants={itemVariants}
+              whileHover={{ scale: 1.02 }}
+              className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10 hover:border-blue-500/50 transition-all duration-300"
+            >
+              <motion.div
+                whileHover={{ scale: 1.1, rotate: 5 }}
+                className="text-4xl mb-4"
+              >
+                🛠️
+              </motion.div>
+              <h3 className="text-xl font-semibold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
+                Egyedi Gyártás
+              </h3>
+              <p className="text-gray-400">
+                Vállaljuk egyedi méretű és formájú műanyag termékek gyártását az Ön igényei szerint.
               </p>
-            </div>
+            </motion.div>
 
-            <div className="bg-white/5 backdrop-blur-lg rounded-2xl p-6 border border-white/10 hover:bg-white/10 transition-all duration-300">
-              <div className="text-blue-400 text-3xl mb-4">
-                <i className='bx bx-code-alt'></i>
-              </div>
-              <h3 className="text-xl font-semibold text-white mb-3">Piacképességünk</h3>
-              <p className="text-gray-300">
-                megőrzése céljából termékeinket direktben értékesítjük, viszonteladó partnerek nélkül, így tudjuk termékeink árát folyamatosan versenyképesen tartani.
+            <motion.div
+              variants={itemVariants}
+              whileHover={{ scale: 1.02 }}
+              className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10 hover:border-blue-500/50 transition-all duration-300"
+            >
+              <motion.div
+                whileHover={{ scale: 1.1, rotate: -5 }}
+                className="text-4xl mb-4"
+              >
+                ♻️
+              </motion.div>
+              <h3 className="text-xl font-semibold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
+                Újrahasznosítás
+              </h3>
+              <p className="text-gray-400">
+                Környezetbarát megoldások, műanyag hulladék újrahasznosítása és feldolgozása.
               </p>
-            </div>
+            </motion.div>
 
-            <div className="bg-white/5 backdrop-blur-lg rounded-2xl p-6 border border-white/10 hover:bg-white/10 transition-all duration-300">
-              <div className="text-blue-400 text-3xl mb-4">
-                <i className='bx bx-edit-alt'></i>
-              </div>
-              <h3 className="text-xl font-semibold text-white mb-3">Folyamatosan</h3>
-              <p className="text-gray-300">
-                fejlődő gépparkunknak köszönhetően egyedülállóan állandó, nagy raktárkészlettel rendelkezünk, ezáltal nagyon rövid határidőn belül eleget tudunk tenni a megrendeléseknek. Igény esetén pedig saját autóinkkal ki tudjuk szállítani a megrendelt termékeinket.
+            <motion.div
+              variants={itemVariants}
+              whileHover={{ scale: 1.02 }}
+              className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10 hover:border-blue-500/50 transition-all duration-300 lg:col-span-1 md:col-span-2 lg:col-span-1"
+            >
+              <motion.div
+                whileHover={{ scale: 1.1, rotate: 5 }}
+                className="text-4xl mb-4"
+              >
+                📦
+              </motion.div>
+              <h3 className="text-xl font-semibold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
+                Raktározás
+              </h3>
+              <p className="text-gray-400">
+                Nagy kapacitású raktárkészlet, gyors és rugalmas kiszolgálás.
               </p>
-            </div>
+            </motion.div>
           </motion.div>
         </motion.div>
       </div>
