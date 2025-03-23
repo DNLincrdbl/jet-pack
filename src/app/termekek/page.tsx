@@ -25,6 +25,15 @@ interface Product {
   isPopular?: boolean;
 }
 
+const preloadImage = (src: string): Promise<void> => {
+  return new Promise<void>((resolve) => {
+    const img = new window.Image();
+    img.onload = () => resolve();
+    img.onerror = () => resolve();
+    img.src = src;
+  });
+};
+
 export default function Products() {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
@@ -194,22 +203,16 @@ export default function Products() {
   // Simulate loading for images and optimize initial load
   useEffect(() => {
     const loadImages = async () => {
-      const imagePromises = products.map(product => {
-        return new Promise<void>((resolve) => {
-          const img = document.createElement('img');
-          img.src = product.image;
-          img.onload = () => resolve();
-          img.onerror = () => resolve(); // Handle loading errors gracefully
-        });
-      });
+      // Only preload the first 4 images on mobile
+      const imagesToPreload = typeof window !== 'undefined' && window.innerWidth < 768 
+        ? products.slice(0, 4) 
+        : products;
+        
+      const imagePromises = imagesToPreload.map(product => preloadImage(product.image));
 
       await Promise.all(imagePromises);
       setIsLoading(false);
-      
-      // Add a small delay before showing content to ensure smooth animation
-      setTimeout(() => {
-        setIsPageLoaded(true);
-      }, 100);
+      setIsPageLoaded(true);
     };
 
     loadImages();
@@ -220,6 +223,7 @@ export default function Products() {
     };
   }, []);
 
+  // Reduce animation complexity on mobile
   const containerVariants = {
     hidden: { 
       opacity: 0,
@@ -229,23 +233,43 @@ export default function Products() {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.6,
+        duration: 0.4,
         ease: "easeOut",
-        staggerChildren: 0.1
+        // Default to desktop stagger, will be overridden on mobile by useEffect
+        staggerChildren: 0.2
       }
     }
   };
 
+  // Add state for mobile animation settings
+  const [mobileVariants, setMobileVariants] = useState(containerVariants);
+
+  // Update variants based on window size
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setMobileVariants({
+        ...containerVariants,
+        visible: {
+          ...containerVariants.visible,
+          transition: {
+            ...containerVariants.visible.transition,
+            staggerChildren: window.innerWidth < 768 ? 0.1 : 0.2
+          }
+        }
+      });
+    }
+  }, []);
+
   const itemVariants = {
     hidden: { 
       opacity: 0,
-      y: 20
+      y: 10
     },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.6,
+        duration: 0.3,
         ease: "easeOut"
       }
     }
@@ -278,26 +302,14 @@ export default function Products() {
   };
 
   return (
-    <main className="min-h-screen py-32 relative">
-      {/* Background Effects */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none opacity-0 animate-fade-in">
-        {/* Main gradient background */}
+    <main className="min-h-screen py-24 sm:py-32 relative">
+      {/* Simplified background for mobile */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div className="absolute inset-0 bg-[#0B0B1E]" />
-        
-        {/* Subtle grid pattern */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_-20%,#000_70%,transparent_110%)] opacity-20" />
-        
-        {/* Main Gradient Blooms */}
-        <div className="absolute w-[800px] h-[800px] -top-[200px] -right-[200px] bg-blue-500/10 rounded-full blur-[120px] opacity-30" />
-        <div className="absolute w-[600px] h-[600px] top-[40%] -left-[100px] bg-purple-500/10 rounded-full blur-[100px] opacity-20" />
-        
-        {/* Additional Medium Blooms */}
-        <div className="absolute w-[400px] h-[400px] bottom-[10%] right-[5%] bg-blue-400/5 rounded-full blur-[80px]" />
-        <div className="absolute w-[300px] h-[300px] top-[30%] right-[20%] bg-purple-400/5 rounded-full blur-[60px]" />
-        
-        {/* Small Accent Blooms */}
-        <div className="absolute w-[200px] h-[200px] bottom-[20%] left-[10%] bg-blue-300/5 rounded-full blur-[40px]" />
-        <div className="absolute w-[150px] h-[150px] top-[60%] right-[30%] bg-purple-300/5 rounded-full blur-[30px]" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:4rem_4rem] opacity-20" />
+        {/* Reduce number of gradient blooms on mobile */}
+        <div className="absolute w-[600px] h-[600px] -top-[100px] -right-[100px] bg-blue-500/10 rounded-full blur-[100px] opacity-20" />
+        <div className="absolute w-[400px] h-[400px] bottom-[20%] left-[10%] bg-purple-500/10 rounded-full blur-[80px] opacity-20" />
       </div>
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -346,44 +358,46 @@ export default function Products() {
           </motion.p>
         </motion.div>
 
-        {/* Category Filter */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate={isPageLoaded ? "visible" : "hidden"}
-          className="flex justify-center mb-12 opacity-0"
-        >
-          <div className="bg-white/5 backdrop-blur-sm p-1.5 rounded-2xl border border-white/10 flex gap-2">
-            {categories.map((category) => {
-              const productCount = category.id === 'all' 
-                ? products.length 
-                : products.filter(p => p.category === category.id).length;
-              
-              return (
-                <button
-                  key={category.id}
-                  onClick={() => setSelectedCategory(category.id)}
-                  className={`relative group px-6 py-2.5 rounded-xl transition-all duration-300 min-w-[160px] ${
-                    selectedCategory === category.id
-                      ? 'bg-gradient-to-r from-blue-500 to-blue-600 text-white'
-                      : 'hover:bg-white/10'
-                  }`}
-                >
-                  <div className="flex items-center justify-between">
-                    <span className="font-medium">{category.name}</span>
-                    <span className={`ml-2 px-2 py-0.5 rounded-lg text-sm transition-colors ${
+        {/* Category Filter - Fix overflow issues */}
+        <div className="relative w-full px-2">
+          <motion.div
+            variants={mobileVariants}
+            initial="hidden"
+            animate={isPageLoaded ? "visible" : "hidden"}
+            className="flex justify-center overflow-x-auto scrollbar-hide"
+          >
+            <div className="bg-white/5 backdrop-blur-sm p-1 rounded-2xl border border-white/10 flex gap-1.5 w-full justify-center">
+              {categories.map((category) => {
+                const productCount = category.id === 'all' 
+                  ? products.length 
+                  : products.filter(p => p.category === category.id).length;
+                
+                return (
+                  <button
+                    key={category.id}
+                    onClick={() => setSelectedCategory(category.id)}
+                    className={`relative group px-2 sm:px-6 py-1.5 sm:py-2.5 rounded-xl transition-all duration-300 whitespace-nowrap flex-shrink-0 ${
                       selectedCategory === category.id
-                        ? 'bg-white/20 text-white'
-                        : 'bg-white/5 text-gray-400 group-hover:bg-white/10'
-                    }`}>
-                      {productCount}
-                    </span>
-                  </div>
-                </button>
-              );
-            })}
-          </div>
-        </motion.div>
+                        ? 'bg-gradient-to-r from-blue-500 to-blue-600 text-white'
+                        : 'hover:bg-white/10'
+                    }`}
+                  >
+                    <div className="flex items-center justify-between space-x-1.5 sm:space-x-2">
+                      <span className="text-xs sm:text-base font-medium">{category.name}</span>
+                      <span className={`px-1 sm:px-2 py-0.5 rounded-lg text-[10px] sm:text-sm transition-colors ${
+                        selectedCategory === category.id
+                          ? 'bg-white/20 text-white'
+                          : 'bg-white/5 text-gray-400 group-hover:bg-white/10'
+                      }`}>
+                        {productCount}
+                      </span>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+          </motion.div>
+        </div>
 
         {/* Products Grid */}
         <motion.div
@@ -888,5 +902,16 @@ const styles = `
 
 .animate-fade-in {
   animation: fade-in 0.6s ease-out forwards;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }
 `; 
