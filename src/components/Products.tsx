@@ -15,8 +15,8 @@ const Products = () => {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
               className="space-y-6"
             >
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white">

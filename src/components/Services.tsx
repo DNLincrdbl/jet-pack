@@ -6,26 +6,36 @@ import { useInView } from 'react-intersection-observer';
 const Services = () => {
   const [ref, inView] = useInView({
     triggerOnce: true,
-    threshold: 0.1,
+    threshold: 0.2,
   });
 
   const containerVariants = {
-    hidden: { opacity: 0 },
+    hidden: { 
+      opacity: 0,
+      y: 20
+    },
     visible: {
       opacity: 1,
+      y: 0,
       transition: {
+        duration: 0.6,
+        ease: "easeOut",
         staggerChildren: 0.2
       }
     }
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { 
+      opacity: 0,
+      y: 20
+    },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.5
+        duration: 0.6,
+        ease: "easeOut"
       }
     }
   };
@@ -89,7 +99,7 @@ const Services = () => {
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
           variants={containerVariants}
-          className="space-y-16"
+          className="space-y-16 opacity-0"
         >
           {/* Section Header */}
           <div className="text-center space-y-4">
@@ -175,8 +185,22 @@ const Services = () => {
                 Egyedi Gyártás
               </h3>
               <p className="text-gray-400">
-                Vállaljuk egyedi méretű és formájú műanyag termékek gyártását az Ön igényei szerint.
+                Vállaljuk egyedi méretű és formájú műanyag termékek gyártását az Ön igényei szerint. Modern gépparkunkon precíz és költséghatékony gyártást biztosítunk, legyen szó kis vagy nagy szériákról.
               </p>
+              <ul className="mt-4 space-y-2 text-gray-400">
+                <li className="flex items-center">
+                  <span className="text-blue-400 mr-2">•</span>
+                  Egyedi méretezés és formák
+                </li>
+                <li className="flex items-center">
+                  <span className="text-blue-400 mr-2">•</span>
+                  Prototípus készítés
+                </li>
+                <li className="flex items-center">
+                  <span className="text-blue-400 mr-2">•</span>
+                  Kis és nagy szériás gyártás
+                </li>
+              </ul>
             </motion.div>
 
             <motion.div
@@ -194,8 +218,22 @@ const Services = () => {
                 Újrahasznosítás
               </h3>
               <p className="text-gray-400">
-                Környezetbarát megoldások, műanyag hulladék újrahasznosítása és feldolgozása.
+                Elkötelezettek vagyunk a környezetvédelem mellett. Saját újrahasznosító üzemünkben dolgozzuk fel a műanyag hulladékot, amit új termékek gyártásához használunk fel.
               </p>
+              <ul className="mt-4 space-y-2 text-gray-400">
+                <li className="flex items-center">
+                  <span className="text-blue-400 mr-2">•</span>
+                  Műanyag hulladék feldolgozása
+                </li>
+                <li className="flex items-center">
+                  <span className="text-blue-400 mr-2">•</span>
+                  Környezetbarát technológiák
+                </li>
+                <li className="flex items-center">
+                  <span className="text-blue-400 mr-2">•</span>
+                  Fenntartható gyártás
+                </li>
+              </ul>
             </motion.div>
 
             <motion.div
@@ -210,13 +248,28 @@ const Services = () => {
                 📦
               </motion.div>
               <h3 className="text-xl font-semibold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
-                Raktározás
+                Raktározás és Logisztika
               </h3>
               <p className="text-gray-400">
-                Nagy kapacitású raktárkészlet, gyors és rugalmas kiszolgálás.
+                Nagy kapacitású raktárkészlettel és saját fuvareszközökkel biztosítjuk a gyors és rugalmas kiszolgálást az ország egész területén.
               </p>
+              <ul className="mt-4 space-y-2 text-gray-400">
+                <li className="flex items-center">
+                  <span className="text-blue-400 mr-2">•</span>
+                  Készletraktározás
+                </li>
+                <li className="flex items-center">
+                  <span className="text-blue-400 mr-2">•</span>
+                  Országos kiszállítás
+                </li>
+                <li className="flex items-center">
+                  <span className="text-blue-400 mr-2">•</span>
+                  Rugalmas szállítási feltételek
+                </li>
+              </ul>
             </motion.div>
           </motion.div>
+
         </motion.div>
       </div>
     </section>

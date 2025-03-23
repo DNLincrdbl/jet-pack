@@ -1,87 +1,81 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+import { useEffect } from 'react';
 
 export default function About() {
+  const controls = useAnimation();
   const [ref, inView] = useInView({
     triggerOnce: true,
-    threshold: 0.1,
+    threshold: 0.2,
   });
 
+  useEffect(() => {
+    if (inView) {
+      controls.start('visible');
+    }
+  }, [controls, inView]);
+
   const containerVariants = {
-    hidden: { opacity: 0 },
+    hidden: { 
+      opacity: 0,
+    },
     visible: {
       opacity: 1,
       transition: {
         staggerChildren: 0.2,
-      },
-    },
+        delayChildren: 0.3,
+      }
+    }
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { 
+      opacity: 0,
+      y: 20,
+    },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.5,
-      },
-    },
+        duration: 0.6,
+        ease: "easeOut"
+      }
+    }
   };
 
   return (
-    <section id="about" className="section overflow-hidden">
-      {/* Parallax Background Elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {/* Floating shapes */}
+    <section id="about" className="relative py-20 overflow-hidden">
+      {/* Background Effects */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-0">
         <motion.div
-          animate={{
-            y: [-20, 20, -20],
-            x: [-10, 10, -10],
-            rotate: [0, 5, 0],
-          }}
-          transition={{
-            duration: 10,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-          className="absolute -top-20 -left-20 w-60 h-60 bg-blue-500/5 rounded-full blur-3xl"
-        />
-        <motion.div
-          animate={{
-            y: [20, -20, 20],
-            x: [10, -10, 10],
-            rotate: [0, -5, 0],
-          }}
-          transition={{
-            duration: 12,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-          className="absolute -bottom-20 -right-20 w-80 h-80 bg-purple-500/5 rounded-full blur-3xl"
-        />
-        
-        {/* Grid pattern with parallax */}
-        <motion.div
-          animate={{
-            y: [-10, 10, -10],
-            x: [-5, 5, -5],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-          className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:3rem_3rem] opacity-20"
-        />
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.8 }}
+          transition={{ duration: 1, delay: 0.5 }}
+          className="absolute inset-0"
+        >
+          {/* Existing background effects */}
+          <motion.div
+            animate={{
+              y: [-10, 10, -10],
+              x: [-5, 5, -5],
+            }}
+            transition={{
+              duration: 8,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+            className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:3rem_3rem] opacity-20"
+          />
+        </motion.div>
       </div>
 
       <div className="container mx-auto px-4 relative">
         <motion.div
           ref={ref}
           initial="hidden"
-          animate={inView ? "visible" : "hidden"}
+          animate={controls}
           variants={containerVariants}
           className="text-center mb-16"
         >
@@ -102,7 +96,7 @@ export default function About() {
         <motion.div
           ref={ref}
           initial="hidden"
-          animate={inView ? "visible" : "hidden"}
+          animate={controls}
           variants={containerVariants}
           className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto"
         >
@@ -186,8 +180,7 @@ export default function About() {
               <p className="text-gray-300 leading-relaxed">
                 Fejlődő gépparkunknak köszönhetően egyedülállóan állandó, nagy
                 raktárkészlettel rendelkezünk, ezáltal nagyon rövid határidőn belül eleget tudunk tenni a
-                megrendeléseknek. Igény esetén pedig saját autóinkkal ki tudjuk szállítani a megrendelt
-                termékeinket.
+                megrendeléseknek.
               </p>
             </div>
           </motion.div>
