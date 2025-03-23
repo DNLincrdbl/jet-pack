@@ -301,6 +301,19 @@ export default function Products() {
     },
   };
 
+  // Add useEffect for body scroll lock
+  useEffect(() => {
+    if (selectedProduct) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [selectedProduct]);
+
   return (
     <main className="min-h-screen py-24 sm:py-32 relative">
       {/* Simplified background for mobile */}
@@ -313,6 +326,23 @@ export default function Products() {
       </div>
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Hero Section */}
+        <div className="relative h-[40vh] mb-4">
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={containerVariants}
+            className="text-center mb-16"
+          >
+            <motion.h1 variants={itemVariants} className="text-4xl md:text-5xl font-bold text-white mb-6">
+              Termékkatalógus
+            </motion.h1>
+            <motion.p variants={itemVariants} className="text-lg text-gray-300 max-w-2xl mx-auto">
+              Fedezze fel prémium minőségű műanyag rekeszeinket és konténereinket, amelyek tökéletes megoldást nyújtanak minden logisztikai kihívásra.
+            </motion.p>
+          </motion.div>
+        </div>
+
         {/* Back to Home Button */}
         <motion.div
           variants={itemVariants}
@@ -350,16 +380,11 @@ export default function Products() {
           animate={isPageLoaded ? "visible" : "hidden"}
           className="text-center mb-16 opacity-0"
         >
-          <motion.h1 variants={itemVariants} className="text-4xl md:text-5xl font-bold text-white mb-6">
-            Termékkatalógus
-          </motion.h1>
-          <motion.p variants={itemVariants} className="text-lg text-gray-300 max-w-2xl mx-auto">
-            Fedezze fel prémium minőségű műanyag rekeszeinket és konténereinket, amelyek tökéletes megoldást nyújtanak minden logisztikai kihívásra.
-          </motion.p>
+          {/* Removing the background "Termékek" text */}
         </motion.div>
 
-        {/* Category Filter - Fix overflow issues */}
-        <div className="relative w-full px-2">
+        {/* Category Filter - Moved up */}
+        <div className="relative w-full px-2 -mt-8 mb-8">
           <motion.div
             variants={mobileVariants}
             initial="hidden"
@@ -508,65 +533,28 @@ export default function Products() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#0a0a0a]/90 backdrop-blur-md overflow-y-auto"
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#0a0a0a]/90 backdrop-blur-md"
             onClick={() => setSelectedProduct(null)}
           >
-            {/* Navigation Arrows */}
-            <motion.button
-              whileHover={{ scale: 1.1, x: -5 }}
-              whileTap={{ scale: 0.9 }}
-              className="absolute left-4 top-1/2 -translate-y-1/2 text-white/80 hover:text-white bg-black/20 rounded-full p-3 backdrop-blur-sm"
-              onClick={(e: React.MouseEvent) => {
-                e.stopPropagation();
-                setSelectedProduct(getAdjacentProduct('prev'));
-              }}
-            >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-              </svg>
-            </motion.button>
-            
-            <motion.button
-              whileHover={{ scale: 1.1, x: 5 }}
-              whileTap={{ scale: 0.9 }}
-              className="absolute right-4 top-1/2 -translate-y-1/2 text-white/80 hover:text-white bg-black/20 rounded-full p-3 backdrop-blur-sm"
-              onClick={(e: React.MouseEvent) => {
-                e.stopPropagation();
-                setSelectedProduct(getAdjacentProduct('next'));
-              }}
-            >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </motion.button>
-
-            {/* Gradient Bloom Effects */}
-            <div className="absolute inset-0 overflow-hidden pointer-events-none">
-              <div className="absolute w-[500px] h-[500px] -top-48 -left-24 bg-blue-500/20 rounded-full blur-3xl"></div>
-              <div className="absolute w-[400px] h-[400px] -bottom-32 -right-16 bg-purple-500/20 rounded-full blur-3xl"></div>
-            </div>
-
             <motion.div
               variants={modalVariants}
               initial="hidden"
               animate="visible"
               exit="exit"
-              className="relative w-full max-w-4xl bg-white/[0.02] rounded-2xl overflow-hidden backdrop-blur-xl border border-white/10 my-4 shadow-[0_0_50px_-12px_rgba(0,0,0,0.25)]"
+              className="relative w-full max-w-4xl bg-white/[0.02] rounded-2xl overflow-y-auto max-h-[90vh] backdrop-blur-xl border border-white/10 shadow-[0_0_50px_-12px_rgba(0,0,0,0.25)]"
               onClick={(e: React.MouseEvent<HTMLDivElement>) => e.stopPropagation()}
             >
+              {/* Close button - making it more prominent on mobile */}
               <motion.button
-                whileHover={{ scale: 1.1, rotate: 90 }}
+                whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
-                onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-                  e.stopPropagation();
-                  setSelectedProduct(null);
-                }}
-                className="absolute top-4 right-4 text-white/80 hover:text-white transition-colors z-10"
+                onClick={() => setSelectedProduct(null)}
+                className="absolute top-2 right-2 z-50 bg-black/20 p-2 rounded-full text-white/80 hover:text-white transition-colors"
               >
                 <IoClose className="w-6 h-6" />
               </motion.button>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-4 sm:p-6 md:p-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-4">
                 <div className="relative h-[300px] sm:h-[350px] md:h-[400px] rounded-xl overflow-hidden">
                   <Image
                     src={selectedProduct.image}

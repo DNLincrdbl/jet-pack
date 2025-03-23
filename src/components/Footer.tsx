@@ -140,23 +140,13 @@ const Footer = () => {
               className="space-y-2"
             >
               <li>
-                <Link href="#" className="text-gray-400 hover:text-white transition-colors">
-                  Műanyag ládák
+                <Link href="/termekek" className="text-gray-400 hover:text-white transition-colors">
+                  Műanyag rekeszek
                 </Link>
               </li>
               <li>
-                <Link href="#" className="text-gray-400 hover:text-white transition-colors">
-                  Fahordók
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="text-gray-400 hover:text-white transition-colors">
-                  Karton dobozok
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="text-gray-400 hover:text-white transition-colors">
-                  Speciális csomagolások
+                <Link href="/termekek" className="text-gray-400 hover:text-white transition-colors">
+                  Műanyag konténerek
                 </Link>
               </li>
             </motion.ul>
