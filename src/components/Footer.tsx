@@ -49,7 +49,7 @@ const Footer = () => {
               variants={itemVariants}
               className="text-gray-400"
             >
-              Minőségi csomagolási megoldások minden igényhez
+              Minőségi műanyag rekeszek és konténerek minden logisztikai igényhez
             </motion.p>
             <motion.div
               variants={itemVariants}
@@ -61,7 +61,7 @@ const Footer = () => {
                 href="#"
                 className="text-2xl hover:text-blue-400 transition-colors"
               >
-                📱
+                📦
               </motion.a>
               <motion.a
                 whileHover={{ scale: 1.1 }}
@@ -69,7 +69,7 @@ const Footer = () => {
                 href="#"
                 className="text-2xl hover:text-blue-400 transition-colors"
               >
-                💼
+                🏭
               </motion.a>
               <motion.a
                 whileHover={{ scale: 1.1 }}
@@ -77,7 +77,7 @@ const Footer = () => {
                 href="#"
                 className="text-2xl hover:text-blue-400 transition-colors"
               >
-                📸
+                🚛
               </motion.a>
             </motion.div>
           </motion.div>

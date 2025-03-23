@@ -74,24 +74,6 @@ const Services = () => {
     }
   ];
 
-  const companyFeatures = [
-    {
-      icon: "🏢",
-      title: "Cégünk",
-      description: "Műanyag rekeszek, ládák, egyéb műanyag termékek gyártásával, kereskedelmével, valamint műanyag felvásárlással foglalkozik."
-    },
-    {
-      icon: "💰",
-      title: "Piacképességünk",
-      description: "Megőrzése céljából termékeinket direktben értékesítjük, viszonteladó partnerek nélkül, így tudjuk termékeink árát folyamatosan versenyképesen tartani."
-    },
-    {
-      icon: "🏭",
-      title: "Folyamatosan",
-      description: "Fejlődő gépparkunknak köszönhetően egyedülállóan állandó, nagy raktárkészlettel rendelkezünk, ezáltal nagyon rövid határidőn belül eleget tudunk tenni a megrendeléseknek. Igény esetén pedig saját autóinkkal ki tudjuk szállítani a megrendelt termékeinket."
-    }
-  ];
-
   return (
     <section id="services" className="section relative overflow-hidden">
       {/* Animated Background */}
@@ -190,34 +172,6 @@ const Services = () => {
                   }}
                   className="absolute top-1/2 left-0 w-2 h-2 bg-blue-500 rounded-full hidden md:block"
                 />
-              </motion.div>
-            ))}
-          </motion.div>
-
-          {/* Company Features */}
-          <motion.div
-            variants={containerVariants}
-            className="grid grid-cols-1 md:grid-cols-3 gap-8"
-          >
-            {companyFeatures.map((feature, index) => (
-              <motion.div
-                key={feature.title}
-                variants={itemVariants}
-                whileHover={{ scale: 1.02 }}
-                className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10 hover:border-blue-500/50 transition-all duration-300"
-              >
-                <motion.div
-                  whileHover={{ scale: 1.1, rotate: 5 }}
-                  className="text-4xl mb-4"
-                >
-                  {feature.icon}
-                </motion.div>
-                <h3 className="text-xl font-semibold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
-                  {feature.title}
-                </h3>
-                <p className="text-gray-400">
-                  {feature.description}
-                </p>
               </motion.div>
             ))}
           </motion.div>
