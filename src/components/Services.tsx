@@ -63,6 +63,35 @@ const Services = () => {
     }
   ];
 
+  const detailedServices = [
+    {
+      title: "Műanyag rekeszek gyártása",
+      description: "Cégünk 10 éve foglalkozik műanyag fröccsöntéssel, eközben gépparkunkat folyamatosan növeltük, hogy minden piaci igényt ki tudjunk elégíteni. A technológiai fejlesztéseinkkel, valamint energiatakarékos gyártó gépeinkkel biztosítani tudjuk a gyors, pontos, kiváló minőségű termékek rövid határidőn belüli gyártását."
+    },
+    {
+      title: "Fröccsöntés, bérgyártás",
+      description: "Saját termékeink mellett bérgyártással is foglalkozunk piacképes árakon, akár nagy szériás termékeket is rövid határidőn belül szállítani tudunk. Vállaljuk hőre lágyuló műanyagok fröccsöntését, összeszerelését, csomagolását. Szakembereinkkel, beszállítóinkkal, partnereinkkel, valamint kialakult szerviz hátterünkkel garantálni tudjuk a gyors és folyamatos termék előállítást, legyen szó bármilyen műanyag termékről. 800 tonna záróerőig, valamint 2500g terméksúlyig vállalunk bérmunkát."
+    }
+  ];
+
+  const companyFeatures = [
+    {
+      icon: "🏢",
+      title: "Cégünk",
+      description: "Műanyag rekeszek, ládák, egyéb műanyag termékek gyártásával, kereskedelmével, valamint műanyag felvásárlással foglalkozik."
+    },
+    {
+      icon: "💰",
+      title: "Piacképességünk",
+      description: "Megőrzése céljából termékeinket direktben értékesítjük, viszonteladó partnerek nélkül, így tudjuk termékeink árát folyamatosan versenyképesen tartani."
+    },
+    {
+      icon: "🏭",
+      title: "Folyamatosan",
+      description: "Fejlődő gépparkunknak köszönhetően egyedülállóan állandó, nagy raktárkészlettel rendelkezünk, ezáltal nagyon rövid határidőn belül eleget tudunk tenni a megrendeléseknek. Igény esetén pedig saját autóinkkal ki tudjuk szállítani a megrendelt termékeinket."
+    }
+  ];
+
   return (
     <section id="services" className="section relative overflow-hidden">
       {/* Animated Background */}
@@ -92,7 +121,7 @@ const Services = () => {
           className="absolute -bottom-1/4 -left-1/4 w-1/2 h-1/2 bg-gradient-to-tr from-purple-500/10 to-blue-500/10 rounded-full blur-3xl"
         />
       </div>
-
+      
       <div className="container mx-auto px-4 relative">
         <motion.div
           ref={ref}
@@ -165,110 +194,56 @@ const Services = () => {
             ))}
           </motion.div>
 
-          {/* Additional Features */}
+          {/* Company Features */}
           <motion.div
             variants={containerVariants}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-16"
+            className="grid grid-cols-1 md:grid-cols-3 gap-8"
           >
-            <motion.div
-              variants={itemVariants}
-              whileHover={{ scale: 1.02 }}
-              className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10 hover:border-blue-500/50 transition-all duration-300"
-            >
+            {companyFeatures.map((feature, index) => (
               <motion.div
-                whileHover={{ scale: 1.1, rotate: 5 }}
-                className="text-4xl mb-4"
+                key={feature.title}
+                variants={itemVariants}
+                whileHover={{ scale: 1.02 }}
+                className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10 hover:border-blue-500/50 transition-all duration-300"
               >
-                🛠️
+                <motion.div
+                  whileHover={{ scale: 1.1, rotate: 5 }}
+                  className="text-4xl mb-4"
+                >
+                  {feature.icon}
+                </motion.div>
+                <h3 className="text-xl font-semibold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
+                  {feature.title}
+                </h3>
+                <p className="text-gray-400">
+                  {feature.description}
+                </p>
               </motion.div>
-              <h3 className="text-xl font-semibold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
-                Egyedi Gyártás
-              </h3>
-              <p className="text-gray-400">
-                Vállaljuk egyedi méretű és formájú műanyag termékek gyártását az Ön igényei szerint. Modern gépparkunkon precíz és költséghatékony gyártást biztosítunk, legyen szó kis vagy nagy szériákról.
-              </p>
-              <ul className="mt-4 space-y-2 text-gray-400">
-                <li className="flex items-center">
-                  <span className="text-blue-400 mr-2">•</span>
-                  Egyedi méretezés és formák
-                </li>
-                <li className="flex items-center">
-                  <span className="text-blue-400 mr-2">•</span>
-                  Prototípus készítés
-                </li>
-                <li className="flex items-center">
-                  <span className="text-blue-400 mr-2">•</span>
-                  Kis és nagy szériás gyártás
-                </li>
-              </ul>
-            </motion.div>
-
-            <motion.div
-              variants={itemVariants}
-              whileHover={{ scale: 1.02 }}
-              className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10 hover:border-blue-500/50 transition-all duration-300"
-            >
-              <motion.div
-                whileHover={{ scale: 1.1, rotate: -5 }}
-                className="text-4xl mb-4"
-              >
-                ♻️
-              </motion.div>
-              <h3 className="text-xl font-semibold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
-                Újrahasznosítás
-              </h3>
-              <p className="text-gray-400">
-                Elkötelezettek vagyunk a környezetvédelem mellett. Saját újrahasznosító üzemünkben dolgozzuk fel a műanyag hulladékot, amit új termékek gyártásához használunk fel.
-              </p>
-              <ul className="mt-4 space-y-2 text-gray-400">
-                <li className="flex items-center">
-                  <span className="text-blue-400 mr-2">•</span>
-                  Műanyag hulladék feldolgozása
-                </li>
-                <li className="flex items-center">
-                  <span className="text-blue-400 mr-2">•</span>
-                  Környezetbarát technológiák
-                </li>
-                <li className="flex items-center">
-                  <span className="text-blue-400 mr-2">•</span>
-                  Fenntartható gyártás
-                </li>
-              </ul>
-            </motion.div>
-
-            <motion.div
-              variants={itemVariants}
-              whileHover={{ scale: 1.02 }}
-              className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10 hover:border-blue-500/50 transition-all duration-300 lg:col-span-1 md:col-span-2 lg:col-span-1"
-            >
-              <motion.div
-                whileHover={{ scale: 1.1, rotate: 5 }}
-                className="text-4xl mb-4"
-              >
-                📦
-              </motion.div>
-              <h3 className="text-xl font-semibold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
-                Raktározás és Logisztika
-              </h3>
-              <p className="text-gray-400">
-                Nagy kapacitású raktárkészlettel és saját fuvareszközökkel biztosítjuk a gyors és rugalmas kiszolgálást az ország egész területén.
-              </p>
-              <ul className="mt-4 space-y-2 text-gray-400">
-                <li className="flex items-center">
-                  <span className="text-blue-400 mr-2">•</span>
-                  Készletraktározás
-                </li>
-                <li className="flex items-center">
-                  <span className="text-blue-400 mr-2">•</span>
-                  Országos kiszállítás
-                </li>
-                <li className="flex items-center">
-                  <span className="text-blue-400 mr-2">•</span>
-                  Rugalmas szállítási feltételek
-                </li>
-              </ul>
-            </motion.div>
+            ))}
           </motion.div>
+
+          {/* Detailed Services */}
+          <div className="pt-16 border-t border-white/10">
+            <motion.div
+              variants={containerVariants}
+              className="grid grid-cols-1 lg:grid-cols-2 gap-8"
+            >
+              {detailedServices.map((service, index) => (
+                <motion.div
+                  key={service.title}
+                  variants={itemVariants}
+                  className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10 hover:border-blue-500/50 transition-all duration-300"
+                >
+                  <h3 className="text-xl font-semibold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
+                    {service.title}
+                  </h3>
+                  <p className="text-gray-400 leading-relaxed">
+                    {service.description}
+                  </p>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
 
         </motion.div>
       </div>

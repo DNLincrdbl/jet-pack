@@ -46,8 +46,8 @@ const Products = () => {
               {/* Feature badges */}
               <div className="grid grid-cols-2 gap-3 sm:gap-4 mt-8 sm:mt-12">
                 {[
-                  { label: 'Nagy teherbírás', value: '500 kg' },
-                  { label: 'Rakásolható', value: '5000 kg' },
+                  { label: 'Teherbírás', value: '30 kg' },
+                  { label: 'Rakásolható', value: '300 kg' },
                   { label: 'Élettartam', value: '10+ év' },
                   { label: 'UV-álló', value: '100%' },
                 ].map((feature, index) => (
@@ -73,7 +73,7 @@ const Products = () => {
               <span className="text-white/80 text-xs sm:text-sm">360° Forgatható</span>
             </div>
             <div className="absolute bottom-4 sm:bottom-6 right-4 sm:right-6 bg-gradient-to-r from-blue-500 to-blue-600 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full shadow-lg">
-              <span className="text-white text-xs sm:text-sm font-medium">JET785E</span>
+              <span className="text-white text-xs sm:text-sm font-medium">M30</span>
             </div>
           </div>
         </div>

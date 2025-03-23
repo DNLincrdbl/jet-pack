@@ -3,9 +3,11 @@
 import { useState, useEffect } from 'react';
 import { motion, useScroll, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
+import { usePathname, useRouter } from 'next/navigation';
+import React from 'react';
 
 const navItems = [
-  { name: 'Kezdőlap', href: 'home' },
+  { name: 'Kezdőlap', href: '/' },
   { name: 'Termékeink', href: '/termekek' },
   { name: 'Szolgáltatásaink', href: 'services' },
   { name: 'Rólunk', href: 'about' },
@@ -16,6 +18,8 @@ const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { scrollY } = useScroll();
+  const pathname = usePathname();
+  const router = useRouter();
 
   useEffect(() => {
     return scrollY.onChange((latest) => {
@@ -29,6 +33,21 @@ const Navbar = () => {
 
   const closeMobileMenu = () => {
     setIsMobileMenuOpen(false);
+  };
+
+  const handleNavigation = (href: string, e: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => {
+    e.preventDefault();
+    if (href.startsWith('/')) {
+      router.push(href);
+    } else if (pathname === '/') {
+      // Ha a főoldalon vagyunk, használjuk a hash navigációt
+      const element = document.getElementById(href);
+      element?.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      // Ha nem a főoldalon vagyunk, navigáljunk vissza a főoldalra a megfelelő szekcióhoz
+      router.push(`/#${href}`);
+    }
+    closeMobileMenu();
   };
 
   return (
@@ -50,29 +69,24 @@ const Navbar = () => {
               whileHover={{ scale: 1.05 }}
               className="flex items-center space-x-2.5"
             >
-              <div className="relative w-9 h-9 bg-white/10 backdrop-blur-xl rounded-xl p-1.5 border border-white/20">
+              <div className="relative w-32 h-12">
                 <Image
-                  src="/jetpack-bg.png"
+                  src="/img/jetpack_logo.png"
                   alt="JetPack Logo"
                   fill
                   className="object-contain"
+                  priority
                 />
               </div>
-              <span className="text-xl font-bold text-white drop-shadow-lg">JetPack</span>
             </motion.div>
 
             {/* Navigation Links */}
             <div className="hidden md:flex items-center space-x-7">
-              {[
-                { name: 'Kezdőlap', href: 'home' },
-                { name: 'Termékeink', href: '/termekek' },
-                { name: 'Szolgáltatásaink', href: 'services' },
-                { name: 'Rólunk', href: 'about' },
-                { name: 'Kapcsolat', href: 'contact' }
-              ].map((item) => (
+              {navItems.map((item) => (
                 <motion.a
                   key={item.name}
-                  href={item.href.startsWith('/') ? item.href : `#${item.href}`}
+                  href={item.href}
+                  onClick={(e: React.MouseEvent<HTMLAnchorElement>) => handleNavigation(item.href, e)}
                   whileHover={{ scale: 1.1 }}
                   className="text-gray-100 hover:text-white transition-colors relative group drop-shadow-lg"
                 >
@@ -85,6 +99,7 @@ const Navbar = () => {
             {/* CTA Button */}
             <motion.a
               href="#contact"
+              onClick={(e: React.MouseEvent<HTMLAnchorElement>) => handleNavigation('contact', e)}
               whileHover={{ scale: 1.05, boxShadow: "0 0 20px rgba(59, 130, 246, 0.5)" }}
               whileTap={{ scale: 0.95 }}
               className="hidden md:block bg-gradient-to-r from-blue-500 to-blue-600 text-white px-6 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 hover:from-blue-600 hover:to-blue-700 shadow-lg shadow-blue-500/20 border border-white/10"
@@ -192,8 +207,8 @@ const Navbar = () => {
                   {navItems.map((item, index) => (
                     <motion.a
                       key={item.name}
-                      href={item.href.startsWith('/') ? item.href : `#${item.href}`}
-                      onClick={closeMobileMenu}
+                      href={item.href}
+                      onClick={(e: React.MouseEvent<HTMLAnchorElement>) => handleNavigation(item.href, e)}
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.1 + index * 0.1 }}
@@ -211,7 +226,7 @@ const Navbar = () => {
               >
                 <a
                   href="#contact"
-                  onClick={closeMobileMenu}
+                  onClick={(e: React.MouseEvent<HTMLAnchorElement>) => handleNavigation('contact', e)}
                   className="block w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white px-6 py-3 rounded-xl text-center font-semibold transition-all duration-300 hover:from-blue-600 hover:to-blue-700 shadow-lg shadow-blue-500/20 border border-white/10"
                 >
                   Ajánlatkérés 📦

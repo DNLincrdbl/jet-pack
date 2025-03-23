@@ -31,6 +31,7 @@ export default function Products() {
   const [isLoading, setIsLoading] = useState(true);
   const [compareProducts, setCompareProducts] = useState<Product[]>([]);
   const [isCompareModalOpen, setIsCompareModalOpen] = useState(false);
+  const [isPageLoaded, setIsPageLoaded] = useState(false);
 
   const categories = [
     { id: 'all', name: 'Összes termék' },
@@ -190,13 +191,65 @@ export default function Products() {
     });
   };
 
-  // Simulate loading for images
+  // Simulate loading for images and optimize initial load
   useEffect(() => {
-    const timer = setTimeout(() => {
+    const loadImages = async () => {
+      const imagePromises = products.map(product => {
+        return new Promise<void>((resolve) => {
+          const img = document.createElement('img');
+          img.src = product.image;
+          img.onload = () => resolve();
+          img.onerror = () => resolve(); // Handle loading errors gracefully
+        });
+      });
+
+      await Promise.all(imagePromises);
       setIsLoading(false);
-    }, 1000);
-    return () => clearTimeout(timer);
+      
+      // Add a small delay before showing content to ensure smooth animation
+      setTimeout(() => {
+        setIsPageLoaded(true);
+      }, 100);
+    };
+
+    loadImages();
+
+    return () => {
+      setIsLoading(true);
+      setIsPageLoaded(false);
+    };
   }, []);
+
+  const containerVariants = {
+    hidden: { 
+      opacity: 0,
+      y: 20
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: "easeOut",
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { 
+      opacity: 0,
+      y: 20
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: "easeOut"
+      }
+    }
+  };
 
   const modalVariants = {
     hidden: {
@@ -227,7 +280,7 @@ export default function Products() {
   return (
     <main className="min-h-screen py-32 relative">
       {/* Background Effects */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+      <div className="fixed inset-0 overflow-hidden pointer-events-none opacity-0 animate-fade-in">
         {/* Main gradient background */}
         <div className="absolute inset-0 bg-[#0B0B1E]" />
         
@@ -250,10 +303,10 @@ export default function Products() {
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Back to Home Button */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="mb-12"
+          variants={itemVariants}
+          initial="hidden"
+          animate={isPageLoaded ? "visible" : "hidden"}
+          className="mb-12 opacity-0"
         >
           <motion.a
             href="/"
@@ -280,68 +333,69 @@ export default function Products() {
 
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          variants={containerVariants}
+          initial="hidden"
+          animate={isPageLoaded ? "visible" : "hidden"}
+          className="text-center mb-16 opacity-0"
         >
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
+          <motion.h1 variants={itemVariants} className="text-4xl md:text-5xl font-bold text-white mb-6">
             Termékkatalógus
-          </h1>
-          <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+          </motion.h1>
+          <motion.p variants={itemVariants} className="text-lg text-gray-300 max-w-2xl mx-auto">
             Fedezze fel prémium minőségű műanyag rekeszeinket és konténereinket, amelyek tökéletes megoldást nyújtanak minden logisztikai kihívásra.
-          </p>
+          </motion.p>
         </motion.div>
 
         {/* Category Filter */}
-        <div className="flex justify-center mb-12">
-          <div className="inline-flex bg-white/5 backdrop-blur-sm rounded-xl p-1">
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate={isPageLoaded ? "visible" : "hidden"}
+          className="flex justify-center mb-12 opacity-0"
+        >
+          <div className="bg-white/5 backdrop-blur-sm p-1.5 rounded-2xl border border-white/10 flex gap-2">
             {categories.map((category) => {
-              const count = category.id === 'all' 
+              const productCount = category.id === 'all' 
                 ? products.length 
                 : products.filter(p => p.category === category.id).length;
               
               return (
-                <motion.button
+                <button
                   key={category.id}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className={`px-6 py-2 rounded-lg font-medium transition-all duration-300 relative ${
-                    selectedCategory === category.id
-                      ? 'bg-blue-500 text-white shadow-lg'
-                      : 'text-gray-400 hover:text-white'
-                  }`}
                   onClick={() => setSelectedCategory(category.id)}
+                  className={`relative group px-6 py-2.5 rounded-xl transition-all duration-300 min-w-[160px] ${
+                    selectedCategory === category.id
+                      ? 'bg-gradient-to-r from-blue-500 to-blue-600 text-white'
+                      : 'hover:bg-white/10'
+                  }`}
                 >
-                  <span className="relative z-10">{category.name}</span>
-                  <motion.span
-                    initial={{ opacity: 0, scale: 0.5 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    className="absolute -top-2 -right-2 bg-blue-500/80 text-white text-xs px-2 py-1 rounded-full"
-                  >
-                    {count}
-                  </motion.span>
-                  {selectedCategory === category.id && (
-                    <motion.div
-                      layoutId="categoryBackground"
-                      className="absolute inset-0 bg-blue-500 rounded-lg -z-10"
-                      transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                    />
-                  )}
-                </motion.button>
+                  <div className="flex items-center justify-between">
+                    <span className="font-medium">{category.name}</span>
+                    <span className={`ml-2 px-2 py-0.5 rounded-lg text-sm transition-colors ${
+                      selectedCategory === category.id
+                        ? 'bg-white/20 text-white'
+                        : 'bg-white/5 text-gray-400 group-hover:bg-white/10'
+                    }`}>
+                      {productCount}
+                    </span>
+                  </div>
+                </button>
               );
             })}
           </div>
-        </div>
+        </motion.div>
 
         {/* Products Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate={isPageLoaded ? "visible" : "hidden"}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 opacity-0"
+        >
           {filteredProducts.map((product, index) => (
             <motion.div
               key={product.name}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+              variants={itemVariants}
               whileHover={{ y: -8 }}
               className="group relative bg-white/5 rounded-2xl overflow-hidden border border-white/10 hover:border-blue-500/50 transition-all duration-500 cursor-pointer backdrop-blur-sm"
               onClick={() => setSelectedProduct(product)}
@@ -354,6 +408,8 @@ export default function Products() {
                     src={product.image}
                     alt={product.name}
                     fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    priority={index < 6}
                     className="object-cover transition-transform duration-700 group-hover:scale-110"
                   />
                 )}
@@ -430,7 +486,7 @@ export default function Products() {
               </div>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
 
         {/* Product Modal */}
         {selectedProduct && (
@@ -817,4 +873,20 @@ export default function Products() {
       </div>
     </main>
   );
-} 
+}
+
+// Add this to your global CSS file
+const styles = `
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.6s ease-out forwards;
+}
+`; 
