@@ -8,6 +8,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+      - name: Set environment variables
+        run: echo "API_KEY=${{ secrets.RESEND_API_KEY }}" >> $GITHUB_ENV
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
         with:
@@ -21,3 +23,6 @@ jobs:
           context: .
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/jet-pack:latest
+          build-args: |
+            API_KEY=${{ secrets.RESEND_API_KEY }
+          
