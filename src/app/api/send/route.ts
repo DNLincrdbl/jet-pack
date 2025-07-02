@@ -1,7 +1,18 @@
-import { Resend } from 'resend';
+import nodemailer from 'nodemailer';
 import { NextResponse } from 'next/server';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const transporter = nodemailer.createTransport({
+  host: process.env.SMTP_HOST,
+  port: Number(process.env.SMTP_PORT) || 465,
+  secure: false,
+  auth: {
+    user: process.env.SMTP_USER,
+    pass: process.env.SMTP_PASS,
+  },
+  tls: {
+    rejectUnauthorized: false,
+  },
+});
 
 const emailTemplate = (content: string) => `
 <!DOCTYPE html>
@@ -161,7 +172,12 @@ const emailTemplate = (content: string) => `
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { name, email, phone, message, product, quantity, formType } = body;
+    const { name, email, phone, message, product, quantity, formType, very_secret } = body;
+
+    if (very_secret && very_secret.trim() !== '') {
+      console.warn('Honeypot triggered, possible bot submission.');
+      return NextResponse.json({ success: true });
+    }
 
     console.log('Received form data:', body);
 
@@ -237,28 +253,29 @@ export async function POST(request: Request) {
       `;
 
     console.log('Attempting to send email with config:', {
-      from: 'JetPack Hungary <onboarding@resend.dev>',
-      to: ['muanyagrekesz@gmail.com'],
+      from: 'JetPack Hungary <post@jet-pack.hu>',
+      to: 'muanyagrekesz@gmail.com',
+      replyTo: email,
       subject,
       html: emailTemplate(emailContent),
     });
 
-    const data = await resend.emails.send({
-      from: 'JetPack Hungary <onboarding@resend.dev>',
-      to: ['muanyagrekesz@gmail.com'],
+    const mailOptions = {
+      from: 'JetPack Hungary <post@jet-pack.hu>',
+      to: 'muanyagrekesz@gmail.com',
       replyTo: email,
       subject: subject,
       html: emailTemplate(emailContent),
-    });
+    };
 
-    console.log('Email sent successfully:', data);
-    return NextResponse.json({ success: true, data });
+    const info = await transporter.sendMail(mailOptions);
+    console.log('Email sent successfully:', info);
+    return NextResponse.json({ success: true, info });
   } catch (error: any) {
     console.error('Detailed email sending error:', {
       message: error.message,
       name: error.name,
       code: error.code,
-      response: error.response,
     });
     
     return NextResponse.json({ 

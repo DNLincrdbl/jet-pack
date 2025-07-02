@@ -50,6 +50,7 @@ export default function Contact() {
     message: '',
     product: '',
     quantity: '',
+    very_secret: '',
   });
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
@@ -78,7 +79,7 @@ export default function Contact() {
       }
 
       setStatus('success');
-      setFormData({ name: '', email: '', phone: '', message: '', product: '', quantity: '' });
+      setFormData({ name: '', email: '', phone: '', message: '', product: '', quantity: '', very_secret: '' });
     } catch (error: any) {
       setStatus('error');
       setErrorMessage(error.message || 'Hiba történt az üzenet küldése során. Kérjük próbálja újra később.');
@@ -337,6 +338,17 @@ export default function Contact() {
                     placeholder={formType === 'quote' ? 'Részletek az árajánlatkéréshez...' : 'Az Ön üzenete...'}
                   ></textarea>
                 </motion.div>
+
+                {/* Honeypot hidden field for bots */}
+                <input
+                  type="text"
+                  name="very_secret"
+                  value={formData.very_secret}
+                  onChange={handleChange}
+                  autoComplete="off"
+                  tabIndex={-1}
+                  style={{ display: 'none' }}
+                />
 
                 {/* Status Messages */}
                 {status === 'success' && (
